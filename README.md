@@ -1,1 +1,1 @@
-# point-cloud-completion-network
+# Point-Cloud-Completion-network
