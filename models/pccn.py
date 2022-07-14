@@ -1,22 +1,22 @@
-from pyexpat import model
 import tensorflow as tf
 
-class PointNet2(tf.keras.layers.Layer):
-    def __init__(self, input_shape, out_dim):
-        super(PointNet2, self).__init__()
+class PointNet(tf.keras.layers.Layer):
+    def __init__(self, input_shape, out_dim, ):
+        super(PointNet, self).__init__()
         self.bs = input_shape[0]
         self.num_pts = input_shape[1]
-        self.conv_1 = tf.keras.layers.Conv2D(64, [1,3], strides=[1,1], padding="valid", activation='relu')
-        self.conv_2 = tf.keras.layers.Conv2D(64, [1,1], strides=[1,1], padding="valid", activation='relu')
-        self.conv_3 = tf.keras.layers.Conv2D(128, [1,1], strides=[1,1], padding="valid", activation='relu')
-        self.conv_4 = tf.keras.layers.Conv2D(512, [1,1], strides=[1,1], padding="valid", activation='relu')
-        self.conv_5 = tf.keras.layers.Conv2D(1024, [1,1], strides=[1,1], padding="valid", activation='relu')
+        self.conv_1 = tf.keras.layers.Conv2D(64, [1,3], activation='relu')
+        self.conv_2 = tf.keras.layers.Conv2D(64, [1,1], activation='relu')
+        self.conv_3 = tf.keras.layers.Conv2D(128, [1,1], activation='relu')
+        self.conv_4 = tf.keras.layers.Conv2D(512, [1,1], activation='relu')
+        self.conv_5 = tf.keras.layers.Conv2D(1024, [1,1], activation='relu')
         self.max_pool2d = tf.keras.layers.MaxPool2D(pool_size=[self.num_pts, 1], strides=(2, 2), padding='valid')
         self.dense_1 = tf.keras.layers.Dense(1024,activation='relu')
         self.dense_2 = tf.keras.layers.Dense(512,activation='relu')
         self.dense_3 = tf.keras.layers.Dense(out_dim, activation='relu')
     
     def call(self, input_tensor):
+        x = tf.expand_dims(input_tensor, axis=2)
         x = self.max_pool2d(self.conv_5(self.conv_4(self.conv_3(self.conv_2(self.conv_1(input_tensor))))))
         x = tf.reshape(x, [self.bs, -1])
         x = self.dense_3(self.dense_2(self.dense_1(x)))

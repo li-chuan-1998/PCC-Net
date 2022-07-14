@@ -1,2 +1,6 @@
 /.ipynb_checkpoints
 /data
+/__pycache__
+/models/pointnet.py
+/models/__pycache__/
+models/__pycache__/pointnet2.cpython-38.pyc
