@@ -17,6 +17,3 @@ lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
 
 model = PCN()
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule))
-
-for idx, data in enumerate(training_dataset):
-    pass
