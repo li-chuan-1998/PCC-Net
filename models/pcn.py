@@ -4,8 +4,8 @@ import tensorflow as tf
 
 
 class PN_Conv1D_Layer(tf.keras.layers.Layer):
-    def __init__(self, channels, momentum=0.5):
-        super(PN_Conv1D_Layer, self).__init__()
+    def __init__(self, channels, momentum=0.5, name="pointnet_conv1d", **kwargs):
+        super(PN_Conv1D_Layer, self).__init__(name=name, **kwargs)
         self.channels = channels
         self.momentum = momentum
 
@@ -17,8 +17,8 @@ class PN_Conv1D_Layer(tf.keras.layers.Layer):
         return tf.nn.relu(self.bn(self.conv(inputs), training))
 
 class Encoder_PN(tf.keras.layers.Layer):
-    def __init__(self, npts):
-        super(Encoder_PN, self).__init__()
+    def __init__(self, npts, name="encoder", **kwargs):
+        super(Encoder_PN, self).__init__(name=name, **kwargs)
         self.npts = npts
 
     def build(self, input_shape: tf.Tensor):
@@ -48,8 +48,8 @@ class Encoder_PN(tf.keras.layers.Layer):
         return tf.concat(outputs, axis=1)
 
 class Coarse_Layer(tf.keras.layers.Layer):
-    def __init__(self, num_coarse=1024):
-        super(Coarse_Layer, self).__init__()
+    def __init__(self, num_coarse=1024, name="coarse_layer", **kwargs):
+        super(Coarse_Layer, self).__init__(name=name, **kwargs)
         self.num_coarse = num_coarse
 
     def build(self, input_shape: tf.Tensor):
@@ -62,8 +62,8 @@ class Coarse_Layer(tf.keras.layers.Layer):
         return tf.reshape(inputs, [-1, self.num_coarse, 3])
 
 class Decoder(tf.keras.layers.Layer):
-    def __init__(self, num_coarse=1024, grid_scale=0.05, grid_size=4):
-        super(Decoder, self).__init__()
+    def __init__(self, num_coarse=1024, grid_scale=0.05, grid_size=4, name="decoder", **kwargs):
+        super(Decoder, self).__init__(name=name, **kwargs)
         self.num_coarse = num_coarse
         self.grid_scale = grid_scale
         self.grid_size = grid_size
@@ -99,13 +99,15 @@ class Decoder(tf.keras.layers.Layer):
 
 
 class PCN(tf.keras.Model):
-    def __init__(self, npts):
-        super(PCN, self).__init__()
+    def __init__(self, npts, name="pcn_model", **kwargs):
+        super(PCN, self).__init__(name=name, **kwargs)
         self.encoder = Encoder_PN(npts)
         self.decoder = Decoder()
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
         features = self.encoder(inputs)
         coarse, fine = self.decoder(features)
+
+        
         return coarse, fine
 
