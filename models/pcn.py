@@ -1,6 +1,8 @@
 from typing import Optional
 
 import tensorflow as tf
+from loss_utils.emd import *
+from loss_utils.cd import *
 
 
 class PN_Conv1D_Layer(tf.keras.layers.Layer):
@@ -17,9 +19,8 @@ class PN_Conv1D_Layer(tf.keras.layers.Layer):
         return tf.nn.relu(self.bn(self.conv(inputs), training))
 
 class Encoder_PN(tf.keras.layers.Layer):
-    def __init__(self, npts, name="encoder", **kwargs):
+    def __init__(self, name="encoder", **kwargs):
         super(Encoder_PN, self).__init__(name=name, **kwargs)
-        self.npts = npts
 
     def build(self, input_shape: tf.Tensor):
         self.conv_1 = PN_Conv1D_Layer(128)
@@ -27,15 +28,16 @@ class Encoder_PN(tf.keras.layers.Layer):
         self.conv_3 = PN_Conv1D_Layer(512)
         self.conv_4 = PN_Conv1D_Layer(1024)
     
-    def call(self, input_tensor):
+    def call(self, inputs):
+        ids, inputs, npts, gt = inputs
         # 1st layer of pointnet
-        features = self.conv_2(self.conv_1(input_tensor))
-        features_global = self.point_unpool(self.point_maxpool(features, self.npts, keepdims=True), self.npts)
+        features = self.conv_2(self.conv_1(inputs))
+        features_global = self.point_unpool(self.point_maxpool(features, npts, keepdims=True), npts)
         features = tf.concat([features, features_global], axis=2)
 
         # 2nd layer of pointnet
         features = self.point_maxpool(self.conv_4(self.conv_3(features)), self.npts)
-        return features
+        return features, gt
 
     def point_maxpool(self, inputs, npts, keepdims=False):
         outputs = [tf.reduce_max(f, axis=1, keepdims=keepdims)
@@ -76,18 +78,19 @@ class Decoder(tf.keras.layers.Layer):
         self.dense_3 = tf.keras.layers.Dense(3)
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
-        coarse = self.coarse_layer(inputs)
+        partial, gt = inputs
+        coarse = self.coarse_layer(partial)
         
         x = tf.raw_ops.LinSpace(start=-self.grid_scale, stop=self.grid_scale, num=self.grid_size)
         y = tf.raw_ops.LinSpace(start=-self.grid_scale, stop=self.grid_scale, num=self.grid_size)
         grid = tf.meshgrid(x, y)
         grid = tf.expand_dims(tf.reshape(tf.stack(grid, axis=2), [-1, 2]), 0)
-        grid_feat = tf.tile(grid, [inputs.shape[0], self.num_coarse, 1])
+        grid_feat = tf.tile(grid, [partial.shape[0], self.num_coarse, 1])
 
         point_feat = tf.tile(tf.expand_dims(coarse, 2), [1, 1, self.grid_size ** 2, 1])
         point_feat = tf.reshape(point_feat, [-1, self.num_fine, 3])
 
-        global_feat = tf.tile(tf.expand_dims(inputs, 1), [1, self.num_fine, 1])
+        global_feat = tf.tile(tf.expand_dims(partial, 1), [1, self.num_fine, 1])
 
         feat = tf.concat([grid_feat, point_feat, global_feat], axis=2)
 
@@ -95,7 +98,13 @@ class Decoder(tf.keras.layers.Layer):
         center = tf.reshape(center, [-1, self.num_fine, 3])
 
         fine = self.dense_3(self.dense_2(self.dense_1(feat))) + center
-        self.add_loss()
+
+        # Loss Calculation
+        gt_ds = gt[:, :coarse.shape[1], :]
+        loss_coarse = getEMD(coarse, gt_ds)
+        loss_fine = chamfer_distance_tf(fine, gt)/2
+        total_loss = loss_coarse + loss_fine
+        self.add_loss(total_loss)
         return coarse, fine
 
 """ PCN implementation
@@ -116,7 +125,6 @@ class Decoder(tf.keras.layers.Layer):
         return loss, [update_coarse, update_fine, update_loss]
 """
 
-
 class PCN(tf.keras.Model):
     def __init__(self, npts, name="pcn_model", **kwargs):
         super(PCN, self).__init__(name=name, **kwargs)
@@ -124,7 +132,7 @@ class PCN(tf.keras.Model):
         self.decoder = Decoder()
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
-        features = self.encoder(inputs)
-        coarse, fine = self.decoder(features)
+        features, gt = self.encoder(inputs)
+        coarse, fine = self.decoder((features, gt))
         return coarse, fine
 
