@@ -95,7 +95,26 @@ class Decoder(tf.keras.layers.Layer):
         center = tf.reshape(center, [-1, self.num_fine, 3])
 
         fine = self.dense_3(self.dense_2(self.dense_1(feat))) + center
+        self.add_loss()
         return coarse, fine
+
+""" PCN implementation
+    def create_loss(self, coarse, fine, gt, alpha):
+        gt_ds = gt[:, :coarse.shape[1], :]
+        loss_coarse = earth_mover(coarse, gt_ds)
+        add_train_summary('train/coarse_loss', loss_coarse)
+        update_coarse = add_valid_summary('valid/coarse_loss', loss_coarse)
+
+        loss_fine = chamfer(fine, gt)
+        add_train_summary('train/fine_loss', loss_fine)
+        update_fine = add_valid_summary('valid/fine_loss', loss_fine)
+
+        loss = loss_coarse + alpha * loss_fine
+        add_train_summary('train/loss', loss)
+        update_loss = add_valid_summary('valid/loss', loss)
+
+        return loss, [update_coarse, update_fine, update_loss]
+"""
 
 
 class PCN(tf.keras.Model):
@@ -107,7 +126,5 @@ class PCN(tf.keras.Model):
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
         features = self.encoder(inputs)
         coarse, fine = self.decoder(features)
-
-        
         return coarse, fine
 
