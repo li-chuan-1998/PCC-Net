@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.optimize
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 # Constraints
 def positivity(f):

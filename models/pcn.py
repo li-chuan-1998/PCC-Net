@@ -36,7 +36,7 @@ class Encoder_PN(tf.keras.layers.Layer):
         features = tf.concat([features, features_global], axis=2)
 
         # 2nd layer of pointnet
-        features = self.point_maxpool(self.conv_4(self.conv_3(features)), self.npts)
+        features = self.point_maxpool(self.conv_4(self.conv_3(features)), npts)
         return features, gt
 
     def point_maxpool(self, inputs, npts, keepdims=False):
@@ -101,7 +101,7 @@ class Decoder(tf.keras.layers.Layer):
 
         # Loss Calculation
         gt_ds = gt[:, :coarse.shape[1], :]
-        loss_coarse = getEMD(coarse, gt_ds)
+        loss_coarse = getEMD(coarse.numpy(), gt_ds.numpy())
         loss_fine = chamfer_distance_tf(fine, gt)/2
         total_loss = loss_coarse + loss_fine
         self.add_loss(total_loss)
@@ -126,9 +126,9 @@ class Decoder(tf.keras.layers.Layer):
 """
 
 class PCN(tf.keras.Model):
-    def __init__(self, npts, name="pcn_model", **kwargs):
+    def __init__(self, name="pcn_model", **kwargs):
         super(PCN, self).__init__(name=name, **kwargs)
-        self.encoder = Encoder_PN(npts)
+        self.encoder = Encoder_PN()
         self.decoder = Decoder()
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
