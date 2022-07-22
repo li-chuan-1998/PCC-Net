@@ -29,7 +29,7 @@ class Encoder_PN(tf.keras.layers.Layer):
         self.conv_4 = PN_Conv1D_Layer(1024)
     
     def call(self, inputs):
-        ids, inputs, npts, gt = inputs
+        inputs, npts= inputs
         # 1st layer of pointnet
         features = self.conv_2(self.conv_1(inputs))
         features_global = self.point_unpool(self.point_maxpool(features, npts, keepdims=True), npts)
@@ -37,7 +37,7 @@ class Encoder_PN(tf.keras.layers.Layer):
 
         # 2nd layer of pointnet
         features = self.point_maxpool(self.conv_4(self.conv_3(features)), npts)
-        return features, gt
+        return features
 
     def point_maxpool(self, inputs, npts, keepdims=False):
         outputs = [tf.reduce_max(f, axis=1, keepdims=keepdims)
@@ -78,7 +78,7 @@ class Decoder(tf.keras.layers.Layer):
         self.dense_3 = tf.keras.layers.Dense(3)
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
-        partial, gt = inputs
+        partial = inputs
         coarse = self.coarse_layer(partial)
         
         x = tf.raw_ops.LinSpace(start=-self.grid_scale, stop=self.grid_scale, num=self.grid_size)
@@ -99,31 +99,7 @@ class Decoder(tf.keras.layers.Layer):
 
         fine = self.dense_3(self.dense_2(self.dense_1(feat))) + center
 
-        # Loss Calculation
-        gt_ds = gt[:, :coarse.shape[1], :]
-        loss_coarse = getEMD(coarse.numpy(), gt_ds.numpy())
-        loss_fine = chamfer_distance_tf(fine, gt)/2
-        total_loss = loss_coarse + loss_fine
-        self.add_loss(total_loss)
         return coarse, fine
-
-""" PCN implementation
-    def create_loss(self, coarse, fine, gt, alpha):
-        gt_ds = gt[:, :coarse.shape[1], :]
-        loss_coarse = earth_mover(coarse, gt_ds)
-        add_train_summary('train/coarse_loss', loss_coarse)
-        update_coarse = add_valid_summary('valid/coarse_loss', loss_coarse)
-
-        loss_fine = chamfer(fine, gt)
-        add_train_summary('train/fine_loss', loss_fine)
-        update_fine = add_valid_summary('valid/fine_loss', loss_fine)
-
-        loss = loss_coarse + alpha * loss_fine
-        add_train_summary('train/loss', loss)
-        update_loss = add_valid_summary('valid/loss', loss)
-
-        return loss, [update_coarse, update_fine, update_loss]
-"""
 
 class PCN(tf.keras.Model):
     def __init__(self, name="pcn_model", **kwargs):
@@ -132,7 +108,10 @@ class PCN(tf.keras.Model):
         self.decoder = Decoder()
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
-        features, gt = self.encoder(inputs)
-        coarse, fine = self.decoder((features, gt))
+        inputs, npts = inputs
+
+        features = self.encoder((inputs, npts))
+        coarse, fine = self.decoder(features)
+    
         return coarse, fine
 
