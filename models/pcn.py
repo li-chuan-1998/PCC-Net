@@ -1,5 +1,3 @@
-from typing import Optional
-
 import tensorflow as tf
 from loss_utils.emd import *
 from loss_utils.cd import *
@@ -15,7 +13,7 @@ class PN_Conv1D_Layer(tf.keras.layers.Layer):
         self.conv = tf.keras.layers.Conv1D( self.channels, 1, input_shape=input_shape)
         self.bn = tf.keras.layers.BatchNormalization(momentum=self.momentum)
 
-    def call(self, inputs: tf.Tensor, training: Optional[bool] = None) -> tf.Tensor:  # pylint: disable=arguments-differ
+    def call(self, inputs: tf.Tensor, training=None) -> tf.Tensor:  # pylint: disable=arguments-differ
         return tf.nn.relu(self.bn(self.conv(inputs), training))
 
 class Encoder_PN(tf.keras.layers.Layer):
@@ -112,6 +110,6 @@ class PCN(tf.keras.Model):
 
         features = self.encoder((inputs, npts))
         coarse, fine = self.decoder(features)
-    
+
         return coarse, fine
 
