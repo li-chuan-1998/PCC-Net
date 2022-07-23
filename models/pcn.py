@@ -1,5 +1,4 @@
 import tensorflow as tf
-
 from loss_utils.utils import *
 
 class PN_Conv1D_Layer(tf.keras.layers.Layer):

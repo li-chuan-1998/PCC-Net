@@ -13,8 +13,6 @@ def train(args):
     ds_valid = Dataloader(complete_dir="data/complete/", is_training=False, batch_size=8)
     ds_valid_iter = iter(ds_valid)
 
-    checkpoint_name = "cp-{epoch:04d}.ckpt"
-
     # Training & Validation
     lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
         args.base_lr,
@@ -28,7 +26,7 @@ def train(args):
         latest = tf.train.latest_checkpoint(args.checkpoint_dir)
         model.load_weights(latest)
     
-    print("Training Begins")
+    print("------------------Training Begins------------------")
     total_step = 0
     for epoch in range(1,args.num_epochs+1):
         for step, batch_data in enumerate(ds_train_iter):
@@ -46,14 +44,14 @@ def train(args):
         # Evaluate
         if epoch % args.eval_freq == 0:
             total_loss = 0
-            for step, (inputs, npts, gt) in enumerate(ds_valid_iter):
-                coarse, fine = model((inputs, npts), training=False)
+            for step, batch_data in enumerate(ds_valid_iter):
+                coarse, fine = model(batch_data, training=False)
                 total_loss += float(sum(model.losses))
-            print(f"Epoch: {epoch} Validation Loss: {total_loss/step}")
+            print(f"Epoch: {epoch} Validation loss: {total_loss/(step+1)}")
 
         # Save model's current weights in every x epochs
         if epoch % args.save_freq == 0:
-            model.save_weights(os.path.join(args.checkpoint_dir, checkpoint_name.format(epoch=epoch)))
+            model.save_weights(os.path.join(args.checkpoint_dir, "cp-{epoch:06d}.ckpt".format(epoch=epoch)))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
