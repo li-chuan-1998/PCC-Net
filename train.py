@@ -22,8 +22,10 @@ def train(args):
     model = PCN()
     
     print("Training Begins")
+    total_step = 0
     for epoch in range(args.num_epochs):
         for step, (inputs, npts, gt) in enumerate(ds_train_iter):
+            total_step+=1
             # inputs = tf.convert_to_tensor(inputs, np.float32)
             # gt = tf.convert_to_tensor(gt, np.float32)
             with tf.GradientTape() as tape:
@@ -41,7 +43,7 @@ def train(args):
 
             # Log every 100 batches.
             if (step+1) % 100 == 0:
-                print(f"Epoch: {epoch+1} Lr: {float(model.optimizer.lr)} Training loss (for one batch) at step {step+1}: {float(loss_value)}")
+                print(f"Epoch: {epoch+1} Total Step: {total_step} Lr: {float(model.optimizer.lr)} Training loss: {float(loss_value)}")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
