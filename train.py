@@ -21,19 +21,14 @@ def train(args):
     optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
     model = PCN()
     
+    print("Training Begins")
     for epoch in range(args.num_epochs):
-    
-        print("\nStart of epoch %d" % (epoch+1,))
-
         for step, (inputs, npts, gt) in enumerate(ds_train_iter):
-            inputs = tf.convert_to_tensor(inputs, np.float32)
-            gt = tf.convert_to_tensor(gt, np.float32)
-            print(type(inputs),type(npts),type(gt))
-            print(inputs.shape,sum(npts),gt.shape)
+            # inputs = tf.convert_to_tensor(inputs, np.float32)
+            # gt = tf.convert_to_tensor(gt, np.float32)
             with tf.GradientTape() as tape:
 
-                coarse, fine = model((inputs, npts), training=True)  # Logits for this minibatch
-                print(coarse.shape,fine.shape)
+                coarse, fine = model((inputs, npts), training=True)
 
                 """Total Loss Calculation"""
                 gt_ds = gt[:, :coarse.shape[1], :]
@@ -41,17 +36,12 @@ def train(args):
                 loss_fine = chamfer(fine, gt)
                 loss_value = loss_coarse + loss_fine
 
-            print(len(model.trainable_weights),type(loss_value))
             grads = tape.gradient(loss_value, model.trainable_weights)
             optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
-            # Log every x batches.
-            if step % 100 == 0:
-                print(
-                    "Training loss (for one batch) at step %d: %.4f"
-                    % (step, float(loss_value))
-                )
-                print("Seen so far: %s samples" % ((step + 1) * args.batch_size))
+            # Log every 100 batches.
+            if (step+1) % 100 == 0:
+                print(f"Epoch: {epoch+1} Lr: {float(model.optimizer.lr)} Training loss (for one batch) at step {step+1}: {float(loss_value)}")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -59,8 +49,7 @@ if __name__ == '__main__':
     parser.add_argument('--log_dir', default="/content/drive/MyDrive/pcn_altered_8192")
     parser.add_argument('--restore', action='store_true')
     parser.add_argument('--num_epochs', type=int, default=1000)
-    parser.add_argument('--batch_size', type=int, default=8)
-    parser.add_argument('--num_gt_points', type=int, default=16384)
+    parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--base_lr', type=float, default=0.0001)
     parser.add_argument('--decay_steps', type=int, default=30000)
     parser.add_argument('--decay_rate', type=float, default=0.8)

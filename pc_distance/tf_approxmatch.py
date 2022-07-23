@@ -18,7 +18,7 @@ returns:
 	return approxmatch_module.approx_match(xyz1,xyz2)
 ops.NoGradient('ApproxMatch')
 #@tf.RegisterShape('ApproxMatch')
-@ops.RegisterShape('ApproxMatch')
+#@ops.RegisterShape('ApproxMatch')
 def _approx_match_shape(op):
 	shape1=op.inputs[0].get_shape().with_rank(3)
 	shape2=op.inputs[1].get_shape().with_rank(3)
@@ -35,7 +35,7 @@ returns:
 	'''
 	return approxmatch_module.match_cost(xyz1,xyz2,match)
 #@tf.RegisterShape('MatchCost')
-@ops.RegisterShape('MatchCost')
+#@ops.RegisterShape('MatchCost')
 def _match_cost_shape(op):
 	shape1=op.inputs[0].get_shape().with_rank(3)
 	shape2=op.inputs[1].get_shape().with_rank(3)
