@@ -54,7 +54,7 @@ class Dataloader:
                 npts.append(self.data[1][idx])
                 complete.append(self.data[2][idx])
             self.counter+=1
-            return np.asarray([partial]), npts, np.asarray(complete)
+            return tf.convert_to_tensor(np.asarray([partial]), np.float32), npts, tf.convert_to_tensor(np.asarray(complete), np.float32)
         else:
             self.counter = 0
             self.shuffled_idx = self.split_idx()

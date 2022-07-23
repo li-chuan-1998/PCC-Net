@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+from loss_utils.utils import *
 
 class PN_Conv1D_Layer(tf.keras.layers.Layer):
     def __init__(self, channels, momentum=0.5, name="pointnet_conv1d", **kwargs):
@@ -104,10 +105,17 @@ class PCN(tf.keras.Model):
         self.decoder = Decoder()
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
-        inputs, npts = inputs
+        inputs, npts, gt = inputs
 
         features = self.encoder((inputs, npts))
         coarse, fine = self.decoder(features)
 
+        """Total Loss Calculation"""
+        gt_ds = gt[:, :coarse.shape[1], :]
+        loss_coarse = earth_mover(coarse, gt_ds)
+        loss_fine = chamfer(fine, gt)
+        loss_value = loss_coarse + loss_fine
+        self.add_loss(loss_value)
+        self.add_metric(loss_value, "loss")
         return coarse, fine
 

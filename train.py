@@ -1,16 +1,19 @@
 import tensorflow as tf
 import numpy as np
 import argparse
+import os
 
 from models.pcn import PCN
-from loss_utils.utils import *
 from dataloader import Dataloader
 
 def train(args):
     # Data Pre-paration
     ds_train = Dataloader(complete_dir=args.data_path, is_training=True, batch_size=args.batch_size)
     ds_train_iter = iter(ds_train)
-    # ds_valid = Dataloader(complete_dir="data/complete/", is_training=False, batch_size=8)
+    ds_valid = Dataloader(complete_dir="data/complete/", is_training=False, batch_size=8)
+    ds_valid_iter = iter(ds_valid)
+
+    checkpoint_name = "cp-{epoch:04d}.ckpt"
 
     # Training & Validation
     lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
@@ -20,41 +23,51 @@ def train(args):
         staircase=True)
     optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
     model = PCN()
+
+    if args.restore:
+        latest = tf.train.latest_checkpoint(args.checkpoint_dir)
+        model.load_weights(latest)
     
     print("Training Begins")
     total_step = 0
-    for epoch in range(args.num_epochs):
-        for step, (inputs, npts, gt) in enumerate(ds_train_iter):
+    for epoch in range(1,args.num_epochs+1):
+        for step, batch_data in enumerate(ds_train_iter):
             total_step+=1
-            # inputs = tf.convert_to_tensor(inputs, np.float32)
-            # gt = tf.convert_to_tensor(gt, np.float32)
             with tf.GradientTape() as tape:
-
-                coarse, fine = model((inputs, npts), training=True)
-
-                """Total Loss Calculation"""
-                gt_ds = gt[:, :coarse.shape[1], :]
-                loss_coarse = earth_mover(coarse, gt_ds)
-                loss_fine = chamfer(fine, gt)
-                loss_value = loss_coarse + loss_fine
+                coarse, fine = model(batch_data, training=True)
+                loss_value = sum(model.losses)
 
             grads = tape.gradient(loss_value, model.trainable_weights)
             optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
-            # Log every 100 batches.
-            if (step+1) % 100 == 0:
-                print(f"Epoch: {epoch+1} Total Step: {total_step} Lr: {float(model.optimizer.lr)} Training loss: {float(loss_value)}")
+            if (step+1) % args.log_freq == 0:
+                print(f"Epoch: {epoch} Total Step: {total_step} Lr: {float(model.optimizer.lr)} Training loss: {float(loss_value)}")
+
+        # Evaluate
+        if epoch % args.eval_freq == 0:
+            total_loss = 0
+            for step, (inputs, npts, gt) in enumerate(ds_valid_iter):
+                coarse, fine = model((inputs, npts), training=False)
+                total_loss += float(sum(model.losses))
+            print(f"Epoch: {epoch} Validation Loss: {total_loss/step}")
+
+        # Save model's current weights in every x epochs
+        if epoch % args.save_freq == 0:
+            model.save_weights(os.path.join(args.checkpoint_dir, checkpoint_name.format(epoch=epoch)))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', default="data/complete/")
-    parser.add_argument('--log_dir', default="/content/drive/MyDrive/pcn_altered_8192")
-    parser.add_argument('--restore', action='store_true')
-    parser.add_argument('--num_epochs', type=int, default=1000)
+    parser.add_argument('--checkpoint_dir', default="/content/drive/MyDrive/pcn_tf_2/")
+    parser.add_argument('--restore', action='store_true', default=True)
+    parser.add_argument('--num_epochs', type=int, default=100000)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--base_lr', type=float, default=0.0001)
     parser.add_argument('--decay_steps', type=int, default=30000)
     parser.add_argument('--decay_rate', type=float, default=0.8)
+    parser.add_argument('--log_freq', type=float, default=100)
+    parser.add_argument('--eval_freq', type=float, default=2)
+    parser.add_argument('--save_freq', type=float, default=5)
     args = parser.parse_args()
 
     train(args)
