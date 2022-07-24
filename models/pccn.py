@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 class PointNet(tf.keras.layers.Layer):
-    def __init__(self, input_shape, out_dim, ):
+    def __init__(self, input_shape, out_dim):
         super(PointNet, self).__init__()
         self.bs = input_shape[0]
         self.num_pts = input_shape[1]
@@ -10,7 +10,7 @@ class PointNet(tf.keras.layers.Layer):
         self.conv_3 = tf.keras.layers.Conv2D(128, [1,1], activation='relu')
         self.conv_4 = tf.keras.layers.Conv2D(512, [1,1], activation='relu')
         self.conv_5 = tf.keras.layers.Conv2D(1024, [1,1], activation='relu')
-        self.max_pool2d = tf.keras.layers.MaxPool2D(pool_size=[self.num_pts, 1], strides=(2, 2), padding='valid')
+        self.max_pool2d = tf.keras.layers.MaxPool2D(pool_size=[None, 1], strides=(2, 2), padding='valid')
         self.dense_1 = tf.keras.layers.Dense(1024,activation='relu')
         self.dense_2 = tf.keras.layers.Dense(512,activation='relu')
         self.dense_3 = tf.keras.layers.Dense(out_dim, activation='relu')

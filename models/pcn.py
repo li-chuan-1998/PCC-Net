@@ -8,7 +8,7 @@ class PN_Conv1D_Layer(tf.keras.layers.Layer):
         self.momentum = momentum
 
     def build(self, input_shape: tf.Tensor):
-        self.conv = tf.keras.layers.Conv1D( self.channels, 1, input_shape=input_shape)
+        self.conv = tf.keras.layers.Conv1D(self.channels, 1, input_shape=input_shape)
         self.bn = tf.keras.layers.BatchNormalization(momentum=self.momentum)
 
     def call(self, inputs: tf.Tensor, training=None) -> tf.Tensor:  # pylint: disable=arguments-differ
@@ -115,6 +115,7 @@ class PCN(tf.keras.Model):
         loss_fine = chamfer(fine, gt)
         loss_value = loss_coarse + loss_fine
         self.add_loss(loss_value)
-        self.add_metric(loss_value, "loss")
+        self.add_metric(loss_coarse, "loss_coarse_emd")
+        self.add_metric(loss_fine, "loss_fine_cd")
         return coarse, fine
 
