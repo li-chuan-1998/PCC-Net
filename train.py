@@ -21,6 +21,7 @@ def train(args):
         staircase=True)
     optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
     model = PCN()
+    model.compile(optimizer=optimizer)
 
     if args.restore:
         latest = tf.train.latest_checkpoint(args.checkpoint_dir)
@@ -36,10 +37,10 @@ def train(args):
                 loss_value = sum(model.losses)
 
             grads = tape.gradient(loss_value, model.trainable_weights)
-            optimizer.apply_gradients(zip(grads, model.trainable_weights))
+            model.optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
             if (step+1) % args.log_freq == 0:
-                print(f"Epoch: {epoch} Total Step: {total_step} Lr: {float(model.optimizer.lr)} Training loss: {float(loss_value)}")
+                print(f"Epoch: {epoch} Total Step: {total_step} Lr: {float(model.optimizer._decayed_lr(tf.float64)):08f} Training loss: {float(loss_value)}")
 
         # Evaluate
         if epoch % args.eval_freq == 0:
@@ -57,7 +58,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', default="data/complete/")
     parser.add_argument('--checkpoint_dir', default="/content/drive/MyDrive/pcn_tf_2/")
-    parser.add_argument('--restore', action='store_true', default=True)
+    parser.add_argument('--restore', action='store_true')
     parser.add_argument('--num_epochs', type=int, default=100000)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--base_lr', type=float, default=0.0001)
