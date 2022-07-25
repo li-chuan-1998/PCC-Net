@@ -10,7 +10,7 @@ def train(args):
     # Data Pre-paration
     ds_train = Dataloader(complete_dir=args.data_path, is_training=True, batch_size=args.batch_size)
     ds_train_iter = iter(ds_train)
-    ds_valid = Dataloader(complete_dir="data/complete/", is_training=False, batch_size=8)
+    ds_valid = Dataloader(complete_dir=args.data_path, is_training=False, batch_size=args.batch_size)
     ds_valid_iter = iter(ds_valid)
 
     # Training & Validation
@@ -27,7 +27,7 @@ def train(args):
         latest = tf.train.latest_checkpoint(args.checkpoint_dir)
         model.load_weights(latest)
     
-    print("------------------Training Begins------------------")
+    print("<------------------Training Begins------------------>")
     total_step = 0
     for epoch in range(1,args.num_epochs+1):
         for step, batch_data in enumerate(ds_train_iter):
@@ -40,7 +40,7 @@ def train(args):
             model.optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
             if (step+1) % args.log_freq == 0:
-                print(f"Epoch: {epoch} Total Step: {total_step} Lr: {float(model.optimizer._decayed_lr(tf.float64)):08f} Training loss: {float(loss_value)}")
+                print(f"Epoch: {epoch:4d} Step: {total_step:10d} Lr: {float(model.optimizer._decayed_lr(tf.float32)):f} Training loss: {float(loss_value)}")
 
         # Evaluate
         if epoch % args.eval_freq == 0:
