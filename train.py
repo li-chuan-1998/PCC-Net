@@ -12,21 +12,22 @@ def train(args):
     ds_valid = Dataloader(complete_dir=args.data_path, is_training=False, batch_size=args.batch_size)
     ds_valid_iter = iter(ds_valid)
 
-    # Training & Validation
-    lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+    # Model Initialization
+    if args.restore:
+        model = PCN()
+        model.load_model(args.restore_path)
+    else:
+        lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
         args.base_lr,
         decay_steps=args.decay_steps,
         decay_rate=args.decay_rate,
         staircase=True)
-    optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-    model = PCN()
-    model.compile(optimizer=optimizer)
-
-    if args.restore:
-        latest = tf.train.latest_checkpoint(args.checkpoint_dir)
-        model.load_weights(latest)
+        optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
+        model = PCN()
+        model.compile(optimizer=optimizer)
     
-    print("<------------------Training Begins------------------>")
+    
+    print("Begin Training".center(100,"-"))
     total_step = 0
     for epoch in range(1,args.num_epochs+1):
         for step, batch_data in enumerate(ds_train_iter):
@@ -38,20 +39,21 @@ def train(args):
             grads = tape.gradient(loss_value, model.trainable_weights)
             model.optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
-            if (step+1) % args.log_freq == 0:
-                print(f"Epoch: {epoch:4d} Step: {total_step:10d} Lr: {float(model.optimizer._decayed_lr(tf.float32)):f} Training loss: {float(loss_value)}")
+            if (total_step) % args.log_freq == 0:
+                print(f"Epoch:{epoch:3d} Step:{total_step:10d} Loss:{float(loss_value):12f}")
 
         # Evaluate
         if epoch % args.eval_freq == 0:
+            print("Validating".center(100,"-"))
             total_loss = 0
             for step, batch_data in enumerate(ds_valid_iter):
                 coarse, fine = model(batch_data, training=False)
                 total_loss += float(sum(model.losses))
-            print(f"Epoch: {epoch} Validation loss: {total_loss/(step+1)}")
+            print(f"Epoch:{epoch:3d} Validation loss:{total_loss/(step+1)}")
 
         # Save model's current weights in every x epochs
         if epoch % args.save_freq == 0:
-            model.save_weights(os.path.join(args.checkpoint_dir, "cp-{epoch:06d}.ckpt".format(epoch=epoch)))
+            model.save(args.save_path)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

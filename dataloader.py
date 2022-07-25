@@ -27,8 +27,8 @@ class Dataloader:
             cur_pcd_path = self.list_pcd_path[idx]
             gt.append(open3d_util.read_pcd(os.path.join(self.complete_dir, cur_pcd_path)))
             temp_input = open3d_util.read_pcd(os.path.join(xform(self.complete_dir), xform(cur_pcd_path)))
-            inputs.extend(temp_input)
             npts.append(len(temp_input))
+            inputs.extend(temp_input)
         return tf.convert_to_tensor([inputs], np.float32), npts, tf.convert_to_tensor(gt, np.float32)
 
     def split_idx(self):

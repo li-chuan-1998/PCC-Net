@@ -37,3 +37,14 @@ class DataGenerator(tf.keras.utils.Sequence):
             inputs.extend(open3d_util.read_pcd(os.path.join(xform(self.complete_dir), xform(ID))))
             npts.append(len(inputs[-1]))
         return tf.convert_to_tensor([inputs], np.float32), npts, tf.convert_to_tensor(gt, np.float32)
+    
+    def gen_batch_inputs(self, list_IDs_temp):
+        def xform(dir):
+            return dir.replace("complete", "partial")
+        inputs, npts, gt = [], [], []
+        for idx in list_IDs_temp:
+            gt.append(open3d_util.read_pcd(os.path.join(self.complete_dir, idx)))
+            temp_input = open3d_util.read_pcd(os.path.join(xform(self.complete_dir), xform(idx)))
+            npts.append(len(temp_input))
+            inputs.extend(temp_input)
+        return tf.convert_to_tensor([inputs], np.float32), npts, tf.convert_to_tensor(gt, np.float32)

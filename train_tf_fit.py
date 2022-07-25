@@ -2,33 +2,33 @@ import tensorflow as tf
 import argparse
 import os
 
-from dataloader import Dataloader
+from datagenerator import DataGenerator
 from models.pcn import PCN
 
 def train(args):
     # Data Pre-paration
-    ds_train = Dataloader(complete_dir=args.data_path, is_training=True, batch_size=args.batch_size)
-    ds_train = tf.data.Dataset.from_generator(ds_train, output_types=(tf.float32, tf.int32, tf.float32))
-    ds_valid = Dataloader(complete_dir=args.data_path, is_training=False, batch_size=args.batch_size)
-    ds_valid_iter = iter(ds_valid)
+    ds_train = DataGenerator(complete_dir=args.data_path, is_training=True, batch_size=args.batch_size)
+    ds_valid = DataGenerator(complete_dir=args.data_path, is_training=False, batch_size=args.batch_size)
 
-    # Training & Validation
-    lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+    # Model Initialization
+    if args.restore:
+        latest = tf.train.latest_checkpoint(args.checkpoint_dir)
+        model = PCN()
+        model.load_weights(latest)
+    else:
+        lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
         args.base_lr,
         decay_steps=args.decay_steps,
         decay_rate=args.decay_rate,
         staircase=True)
-    optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-    model = PCN()
-    model.compile(optimizer=optimizer)
+        optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
+        model = PCN()
+        model.compile(optimizer=optimizer)
+    
 
-    if args.restore:
-        latest = tf.train.latest_checkpoint(args.checkpoint_dir)
-        model.load_weights(latest)
     
     print("Begin Training".center(100,"-"))
-
-    model.fit(ds_train_iter, validation_data=ds_valid_iter)
+    model.fit(ds_train, validation_data=ds_valid)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
