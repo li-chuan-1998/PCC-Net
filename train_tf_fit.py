@@ -2,13 +2,13 @@ import tensorflow as tf
 import argparse
 import os
 
-from models.pcn import PCN
 from dataloader import Dataloader
+from models.pcn import PCN
 
 def train(args):
     # Data Pre-paration
     ds_train = Dataloader(complete_dir=args.data_path, is_training=True, batch_size=args.batch_size)
-    ds_train_iter = iter(ds_train)
+    ds_train = tf.data.Dataset.from_generator(ds_train, output_types=(tf.float32, tf.int32, tf.float32))
     ds_valid = Dataloader(complete_dir=args.data_path, is_training=False, batch_size=args.batch_size)
     ds_valid_iter = iter(ds_valid)
 
@@ -26,32 +26,9 @@ def train(args):
         latest = tf.train.latest_checkpoint(args.checkpoint_dir)
         model.load_weights(latest)
     
-    print("<------------------Training Begins------------------>")
-    total_step = 0
-    for epoch in range(1,args.num_epochs+1):
-        for step, batch_data in enumerate(ds_train_iter):
-            total_step+=1
-            with tf.GradientTape() as tape:
-                coarse, fine = model(batch_data, training=True)
-                loss_value = sum(model.losses)
+    print("Begin Training".center(100,"-"))
 
-            grads = tape.gradient(loss_value, model.trainable_weights)
-            model.optimizer.apply_gradients(zip(grads, model.trainable_weights))
-
-            if (step+1) % args.log_freq == 0:
-                print(f"Epoch: {epoch:4d} Step: {total_step:10d} Lr: {float(model.optimizer._decayed_lr(tf.float32)):f} Training loss: {float(loss_value)}")
-
-        # Evaluate
-        if epoch % args.eval_freq == 0:
-            total_loss = 0
-            for step, batch_data in enumerate(ds_valid_iter):
-                coarse, fine = model(batch_data, training=False)
-                total_loss += float(sum(model.losses))
-            print(f"Epoch: {epoch} Validation loss: {total_loss/(step+1)}")
-
-        # Save model's current weights in every x epochs
-        if epoch % args.save_freq == 0:
-            model.save_weights(os.path.join(args.checkpoint_dir, "cp-{epoch:06d}.ckpt".format(epoch=epoch)))
+    model.fit(ds_train_iter, validation_data=ds_valid_iter)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

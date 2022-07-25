@@ -40,6 +40,9 @@ class Dataloader:
             batch_ids.append(rnd_idx[start:end])
         return batch_ids
     
+    def __len__(self):
+        return len(self.shuffled_idx)
+
     def __iter__(self):
         return self
     
@@ -51,3 +54,6 @@ class Dataloader:
             self.counter = 0
             self.shuffled_idx = self.split_idx()
             raise StopIteration
+
+    def __call__(self):
+        return self.__next__()
