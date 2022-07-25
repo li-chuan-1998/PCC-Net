@@ -24,7 +24,7 @@ class DataGenerator(tf.keras.utils.Sequence):
 
     def shuffle_indexes(self):
         'Updates indexes after each epoch'
-        self.indexes = np.arange(len(self.list_IDs))
+        self.indexes = np.arange(len(self))
         if self.shuffle == True:
             np.random.shuffle(self.indexes)
 
@@ -34,6 +34,6 @@ class DataGenerator(tf.keras.utils.Sequence):
         inputs, npts, gt = [], [], []
         for ID in list_IDs_temp:
             gt.append(open3d_util.read_pcd(os.path.join(self.complete_dir, ID)))
-            inputs.append(open3d_util.read_pcd(os.path.join(xform(self.complete_dir), xform(ID))))
+            inputs.extend(open3d_util.read_pcd(os.path.join(xform(self.complete_dir), xform(ID))))
             npts.append(len(inputs[-1]))
         return tf.convert_to_tensor([inputs], np.float32), npts, tf.convert_to_tensor(gt, np.float32)
