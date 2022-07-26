@@ -54,8 +54,8 @@ def train(args):
             model.optimizer.apply_gradients(zip(grads, model.trainable_weights))
 
             if (total_step) % args.log_freq == 0:
-                cur = (time.time() - train_start)/(total_step*100//args.log_freq)
-                print(f"Epoch:{epoch:3d} Step:{total_step:8d} Loss:{float(loss_value):.6f} time per batch:{cur/60:.3f}min")
+                cur = (time.time() - train_start)/(total_step//args.log_freq)
+                print(f"Epoch:{epoch:3d} Step:{total_step:8d} Loss:{float(loss_value):.6f} Min/100step:{cur/60:.3f}")
 
         # Evaluation
         if epoch % args.eval_freq == 0:
