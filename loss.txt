@@ -1,0 +1,830 @@
+2022-07-25 13:30:07.368865: W tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:39] Overriding allow_growth setting because the TF_FORCE_GPU_ALLOW_GROWTH environment variable is set. Original config value was 0.
+/content/drive/MyDrive/pcn_tf_2/cp-000001.ckpt
+-------------------------------------------Begin Training-------------------------------------------
+WARNING:tensorflow:Detecting that an object or model or tf.train.Checkpoint is being deleted with unrestored values. See the following logs for the specific values in question. To silence these warnings, use `status.expect_partial()`. See https://www.tensorflow.org/api_docs/python/tf/train/Checkpoint#restorefor details about the status object returned by the restore function.
+WARNING - 2022-07-25 13:30:09,517 - util - Detecting that an object or model or tf.train.Checkpoint is being deleted with unrestored values. See the following logs for the specific values in question. To silence these warnings, use `status.expect_partial()`. See https://www.tensorflow.org/api_docs/python/tf/train/Checkpoint#restorefor details about the status object returned by the restore function.
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).decoder.coarse_layer.dense_1.kernel
+WARNING - 2022-07-25 13:30:09,517 - util - Value in checkpoint could not be found in the restored object: (root).decoder.coarse_layer.dense_1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).decoder.coarse_layer.dense_1.bias
+WARNING - 2022-07-25 13:30:09,517 - util - Value in checkpoint could not be found in the restored object: (root).decoder.coarse_layer.dense_1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).optimizer's state 'm' for (root).decoder.coarse_layer.dense_1.kernel
+WARNING - 2022-07-25 13:30:09,517 - util - Value in checkpoint could not be found in the restored object: (root).optimizer's state 'm' for (root).decoder.coarse_layer.dense_1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).optimizer's state 'm' for (root).decoder.coarse_layer.dense_1.bias
+WARNING - 2022-07-25 13:30:09,517 - util - Value in checkpoint could not be found in the restored object: (root).optimizer's state 'm' for (root).decoder.coarse_layer.dense_1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).optimizer's state 'v' for (root).decoder.coarse_layer.dense_1.kernel
+WARNING - 2022-07-25 13:30:09,517 - util - Value in checkpoint could not be found in the restored object: (root).optimizer's state 'v' for (root).decoder.coarse_layer.dense_1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).optimizer's state 'v' for (root).decoder.coarse_layer.dense_1.bias
+WARNING - 2022-07-25 13:30:09,517 - util - Value in checkpoint could not be found in the restored object: (root).optimizer's state 'v' for (root).decoder.coarse_layer.dense_1.bias
+Epoch:  1 Step:       100 Training loss:  0.320531
+Epoch:  1 Step:       200 Training loss:  0.298036
+Epoch:  1 Step:       300 Training loss:  0.197403
+Epoch:  1 Step:       400 Training loss:  0.203139
+Epoch:  1 Step:       500 Training loss:  0.177898
+Epoch:  1 Step:       600 Training loss:  0.201169
+Epoch:  1 Step:       700 Training loss:  0.190171
+Epoch: 1 Validation loss: 0.14922374465327332
+Epoch:  2 Step:       800 Training loss:  0.170769
+Epoch:  2 Step:       900 Training loss:  0.160215
+Epoch:  2 Step:      1000 Training loss:  0.135838
+Epoch:  2 Step:      1100 Training loss:  0.140768
+Epoch:  2 Step:      1200 Training loss:  0.158591
+Epoch:  2 Step:      1300 Training loss:  0.122046
+Epoch:  2 Step:      1400 Training loss:  0.114018
+Epoch: 2 Validation loss: 0.11966474606219121
+Epoch:  3 Step:      1500 Training loss:  0.133691
+Epoch:  3 Step:      1600 Training loss:  0.110205
+Epoch:  3 Step:      1700 Training loss:  0.122529
+Epoch:  3 Step:      1800 Training loss:  0.088862
+Epoch:  3 Step:      1900 Training loss:  0.109634
+Epoch:  3 Step:      2000 Training loss:  0.093757
+Epoch:  3 Step:      2100 Training loss:  0.107047
+Epoch: 3 Validation loss: 0.10427396395356182
+Epoch:  4 Step:      2200 Training loss:  0.086454
+Epoch:  4 Step:      2300 Training loss:  0.099009
+Epoch:  4 Step:      2400 Training loss:  0.077123
+Epoch:  4 Step:      2500 Training loss:  0.085852
+Epoch:  4 Step:      2600 Training loss:  0.077496
+Epoch:  4 Step:      2700 Training loss:  0.080411
+Epoch:  4 Step:      2800 Training loss:  0.104410
+Epoch: 4 Validation loss: 0.07576183837968946
+Epoch:  5 Step:      2900 Training loss:  0.070223
+Epoch:  5 Step:      3000 Training loss:  0.077135
+Epoch:  5 Step:      3100 Training loss:  0.086178
+Epoch:  5 Step:      3200 Training loss:  0.068903
+Epoch:  5 Step:      3300 Training loss:  0.104227
+Epoch:  5 Step:      3400 Training loss:  0.066832
+Epoch:  5 Step:      3500 Training loss:  0.080488
+Epoch:  5 Step:      3600 Training loss:  0.074812
+Epoch: 5 Validation loss: 0.06523607853026206
+Epoch:  6 Step:      3700 Training loss:  0.063181
+Epoch:  6 Step:      3800 Training loss:  0.066962
+Epoch:  6 Step:      3900 Training loss:  0.073037
+Epoch:  6 Step:      4000 Training loss:  0.064099
+Epoch:  6 Step:      4100 Training loss:  0.065499
+Epoch:  6 Step:      4200 Training loss:  0.075644
+Epoch:  6 Step:      4300 Training loss:  0.063169
+Epoch: 6 Validation loss: 0.07029568927659505
+Epoch:  7 Step:      4400 Training loss:  0.057587
+Epoch:  7 Step:      4500 Training loss:  0.069125
+Epoch:  7 Step:      4600 Training loss:  0.066419
+Epoch:  7 Step:      4700 Training loss:  0.060222
+Epoch:  7 Step:      4800 Training loss:  0.082757
+Epoch:  7 Step:      4900 Training loss:  0.059634
+Epoch:  7 Step:      5000 Training loss:  0.064061
+Epoch: 7 Validation loss: 0.05395142966206523
+Epoch:  8 Step:      5100 Training loss:  0.055286
+Epoch:  8 Step:      5200 Training loss:  0.056002
+Epoch:  8 Step:      5300 Training loss:  0.057401
+Epoch:  8 Step:      5400 Training loss:  0.057020
+Epoch:  8 Step:      5500 Training loss:  0.054385
+Epoch:  8 Step:      5600 Training loss:  0.069725
+Epoch:  8 Step:      5700 Training loss:  0.060796
+Epoch: 8 Validation loss: 0.05821952563912972
+Epoch:  9 Step:      5800 Training loss:  0.053754
+Epoch:  9 Step:      5900 Training loss:  0.075443
+Epoch:  9 Step:      6000 Training loss:  0.064152
+Epoch:  9 Step:      6100 Training loss:  0.060418
+Epoch:  9 Step:      6200 Training loss:  0.047953
+Epoch:  9 Step:      6300 Training loss:  0.051889
+Epoch:  9 Step:      6400 Training loss:  0.046677
+Epoch: 9 Validation loss: 0.049364117158639836
+Epoch: 10 Step:      6500 Training loss:  0.061528
+Epoch: 10 Step:      6600 Training loss:  0.048224
+Epoch: 10 Step:      6700 Training loss:  0.048211
+Epoch: 10 Step:      6800 Training loss:  0.055393
+Epoch: 10 Step:      6900 Training loss:  0.046321
+Epoch: 10 Step:      7000 Training loss:  0.054405
+Epoch: 10 Step:      7100 Training loss:  0.049829
+Epoch: 10 Step:      7200 Training loss:  0.055003
+Epoch: 10 Validation loss: 0.04556323323344839
+Epoch: 11 Step:      7300 Training loss:  0.054326
+Epoch: 11 Step:      7400 Training loss:  0.051934
+Epoch: 11 Step:      7500 Training loss:  0.049077
+Epoch: 11 Step:      7600 Training loss:  0.057769
+Epoch: 11 Step:      7700 Training loss:  0.050089
+Epoch: 11 Step:      7800 Training loss:  0.054596
+Epoch: 11 Step:      7900 Training loss:  0.050429
+Epoch: 11 Validation loss: 0.04233354371454981
+Epoch: 12 Step:      8000 Training loss:  0.050774
+Epoch: 12 Step:      8100 Training loss:  0.051411
+Epoch: 12 Step:      8200 Training loss:  0.043669
+Epoch: 12 Step:      8300 Training loss:  0.040561
+Epoch: 12 Step:      8400 Training loss:  0.044115
+Epoch: 12 Step:      8500 Training loss:  0.040727
+Epoch: 12 Step:      8600 Training loss:  0.045053
+Epoch: 12 Validation loss: 0.04393750834076301
+Epoch: 13 Step:      8700 Training loss:  0.056811
+Epoch: 13 Step:      8800 Training loss:  0.062573
+Epoch: 13 Step:      8900 Training loss:  0.044447
+Epoch: 13 Step:      9000 Training loss:  0.045853
+Epoch: 13 Step:      9100 Training loss:  0.051002
+Epoch: 13 Step:      9200 Training loss:  0.044566
+Epoch: 13 Step:      9300 Training loss:  0.053531
+Epoch: 13 Validation loss: 0.052525247298720955
+Epoch: 14 Step:      9400 Training loss:  0.050748
+Epoch: 14 Step:      9500 Training loss:  0.043827
+Epoch: 14 Step:      9600 Training loss:  0.045963
+Epoch: 14 Step:      9700 Training loss:  0.053911
+Epoch: 14 Step:      9800 Training loss:  0.044768
+Epoch: 14 Step:      9900 Training loss:  0.044432
+Epoch: 14 Step:     10000 Training loss:  0.043525
+Epoch: 14 Step:     10100 Training loss:  0.039421
+Epoch: 14 Validation loss: 0.04568096716406841
+Epoch: 15 Step:     10200 Training loss:  0.046389
+Epoch: 15 Step:     10300 Training loss:  0.040073
+Epoch: 15 Step:     10400 Training loss:  0.047771
+Epoch: 15 Step:     10500 Training loss:  0.049913
+Epoch: 15 Step:     10600 Training loss:  0.049932
+Epoch: 15 Step:     10700 Training loss:  0.045840
+Epoch: 15 Step:     10800 Training loss:  0.044516
+Epoch: 15 Validation loss: 0.0429917154788683
+Epoch: 16 Step:     10900 Training loss:  0.054419
+Epoch: 16 Step:     11000 Training loss:  0.040662
+Epoch: 16 Step:     11100 Training loss:  0.047284
+Epoch: 16 Step:     11200 Training loss:  0.049640
+Epoch: 16 Step:     11300 Training loss:  0.042686
+Epoch: 16 Step:     11400 Training loss:  0.047354
+Epoch: 16 Step:     11500 Training loss:  0.057614
+Epoch: 16 Validation loss: 0.04404052424330066
+Epoch: 17 Step:     11600 Training loss:  0.042317
+Epoch: 17 Step:     11700 Training loss:  0.047094
+Epoch: 17 Step:     11800 Training loss:  0.039255
+Epoch: 17 Step:     11900 Training loss:  0.047023
+Epoch: 17 Step:     12000 Training loss:  0.043209
+Epoch: 17 Step:     12100 Training loss:  0.045100
+Epoch: 17 Step:     12200 Training loss:  0.040094
+Epoch: 17 Validation loss: 0.049422228609882116
+Epoch: 18 Step:     12300 Training loss:  0.042089
+Epoch: 18 Step:     12400 Training loss:  0.048123
+Epoch: 18 Step:     12500 Training loss:  0.053916
+Epoch: 18 Step:     12600 Training loss:  0.041160
+Epoch: 18 Step:     12700 Training loss:  0.040736
+Epoch: 18 Step:     12800 Training loss:  0.046769
+Epoch: 18 Step:     12900 Training loss:  0.060916
+Epoch: 18 Validation loss: 0.049099617426234164
+Epoch: 19 Step:     13000 Training loss:  0.043361
+Epoch: 19 Step:     13100 Training loss:  0.050335
+Epoch: 19 Step:     13200 Training loss:  0.044708
+Epoch: 19 Step:     13300 Training loss:  0.051676
+Epoch: 19 Step:     13400 Training loss:  0.052044
+Epoch: 19 Step:     13500 Training loss:  0.045801
+Epoch: 19 Step:     13600 Training loss:  0.043623
+Epoch: 19 Step:     13700 Training loss:  0.036143
+Epoch: 19 Validation loss: 0.04399695153829556
+Epoch: 20 Step:     13800 Training loss:  0.041071
+Epoch: 20 Step:     13900 Training loss:  0.042777
+Epoch: 20 Step:     14000 Training loss:  0.045266
+Epoch: 20 Step:     14100 Training loss:  0.042294
+Epoch: 20 Step:     14200 Training loss:  0.044148
+Epoch: 20 Step:     14300 Training loss:  0.042344
+Epoch: 20 Step:     14400 Training loss:  0.039913
+Epoch: 20 Validation loss: 0.049394050730023405
+Epoch: 21 Step:     14500 Training loss:  0.055357
+Epoch: 21 Step:     14600 Training loss:  0.045690
+Epoch: 21 Step:     14700 Training loss:  0.053859
+Epoch: 21 Step:     14800 Training loss:  0.044870
+Epoch: 21 Step:     14900 Training loss:  0.042542
+Epoch: 21 Step:     15000 Training loss:  0.051238
+Epoch: 21 Step:     15100 Training loss:  0.042584
+Epoch: 21 Validation loss: 0.042392692326203636
+Epoch: 22 Step:     15200 Training loss:  0.047957
+Epoch: 22 Step:     15300 Training loss:  0.052032
+Epoch: 22 Step:     15400 Training loss:  0.041550
+Epoch: 22 Step:     15500 Training loss:  0.042067
+Epoch: 22 Step:     15600 Training loss:  0.052128
+Epoch: 22 Step:     15700 Training loss:  0.045566
+Epoch: 22 Step:     15800 Training loss:  0.055131
+Epoch: 22 Validation loss: 0.04627037888779732
+Epoch: 23 Step:     15900 Training loss:  0.044120
+Epoch: 23 Step:     16000 Training loss:  0.042311
+Epoch: 23 Step:     16100 Training loss:  0.046652
+Epoch: 23 Step:     16200 Training loss:  0.042632
+Epoch: 23 Step:     16300 Training loss:  0.041966
+Epoch: 23 Step:     16400 Training loss:  0.041110
+Epoch: 23 Step:     16500 Training loss:  0.039393
+Epoch: 23 Step:     16600 Training loss:  0.041970
+Epoch: 23 Validation loss: 0.04796711889945943
+Epoch: 24 Step:     16700 Training loss:  0.039553
+Epoch: 24 Step:     16800 Training loss:  0.043941
+Epoch: 24 Step:     16900 Training loss:  0.058022
+Epoch: 24 Step:     17000 Training loss:  0.046815
+Epoch: 24 Step:     17100 Training loss:  0.042482
+Epoch: 24 Step:     17200 Training loss:  0.043083
+Epoch: 24 Step:     17300 Training loss:  0.042027
+Epoch: 24 Validation loss: 0.04063537007800623
+Epoch: 25 Step:     17400 Training loss:  0.057375
+Epoch: 25 Step:     17500 Training loss:  0.045704
+Epoch: 25 Step:     17600 Training loss:  0.050597
+Epoch: 25 Step:     17700 Training loss:  0.042263
+Epoch: 25 Step:     17800 Training loss:  0.042519
+Epoch: 25 Step:     17900 Training loss:  0.042161
+Epoch: 25 Step:     18000 Training loss:  0.044285
+Epoch: 25 Validation loss: 0.04186016673915052
+Epoch: 26 Step:     18100 Training loss:  0.046742
+Epoch: 26 Step:     18200 Training loss:  0.047226
+Epoch: 26 Step:     18300 Training loss:  0.041182
+Epoch: 26 Step:     18400 Training loss:  0.041102
+Epoch: 26 Step:     18500 Training loss:  0.040174
+Epoch: 26 Step:     18600 Training loss:  0.036777
+Epoch: 26 Step:     18700 Training loss:  0.040178
+Epoch: 26 Validation loss: 0.040042434715562396
+Epoch: 27 Step:     18800 Training loss:  0.037689
+Epoch: 27 Step:     18900 Training loss:  0.048769
+Epoch: 27 Step:     19000 Training loss:  0.045643
+Epoch: 27 Step:     19100 Training loss:  0.042283
+Epoch: 27 Step:     19200 Training loss:  0.041605
+Epoch: 27 Step:     19300 Training loss:  0.041761
+Epoch: 27 Step:     19400 Training loss:  0.042927
+Epoch: 27 Validation loss: 0.041935906749992556
+Epoch: 28 Step:     19500 Training loss:  0.043595
+Epoch: 28 Step:     19600 Training loss:  0.053771
+Epoch: 28 Step:     19700 Training loss:  0.040297
+Epoch: 28 Step:     19800 Training loss:  0.038354
+Epoch: 28 Step:     19900 Training loss:  0.047615
+Epoch: 28 Step:     20000 Training loss:  0.045681
+Epoch: 28 Step:     20100 Training loss:  0.051365
+Epoch: 28 Step:     20200 Training loss:  0.048507
+Epoch: 28 Validation loss: 0.05532726595079265
+Epoch: 29 Step:     20300 Training loss:  0.049175
+Epoch: 29 Step:     20400 Training loss:  0.044838
+Epoch: 29 Step:     20500 Training loss:  0.045313
+Epoch: 29 Step:     20600 Training loss:  0.047808
+Epoch: 29 Step:     20700 Training loss:  0.045411
+Epoch: 29 Step:     20800 Training loss:  0.040962
+Epoch: 29 Step:     20900 Training loss:  0.038009
+Epoch: 29 Validation loss: 0.04484389680955145
+Epoch: 30 Step:     21000 Training loss:  0.043156
+Epoch: 30 Step:     21100 Training loss:  0.043895
+Epoch: 30 Step:     21200 Training loss:  0.050320
+Epoch: 30 Step:     21300 Training loss:  0.043674
+Epoch: 30 Step:     21400 Training loss:  0.043352
+Epoch: 30 Step:     21500 Training loss:  0.045116
+Epoch: 30 Step:     21600 Training loss:  0.046338
+Epoch: 30 Validation loss: 0.04803464379935449
+Epoch: 31 Step:     21700 Training loss:  0.044730
+Epoch: 31 Step:     21800 Training loss:  0.044821
+Epoch: 31 Step:     21900 Training loss:  0.042747
+Epoch: 31 Step:     22000 Training loss:  0.041398
+Epoch: 31 Step:     22100 Training loss:  0.040073
+Epoch: 31 Step:     22200 Training loss:  0.042802
+Epoch: 31 Step:     22300 Training loss:  0.041380
+Epoch: 31 Validation loss: 0.04280256337805646
+Epoch: 32 Step:     22400 Training loss:  0.043450
+Epoch: 32 Step:     22500 Training loss:  0.038926
+Epoch: 32 Step:     22600 Training loss:  0.045607
+Epoch: 32 Step:     22700 Training loss:  0.045530
+Epoch: 32 Step:     22800 Training loss:  0.039092
+Epoch: 32 Step:     22900 Training loss:  0.038219
+Epoch: 32 Step:     23000 Training loss:  0.055751
+Epoch: 32 Step:     23100 Training loss:  0.046790
+Epoch: 32 Validation loss: 0.04228291615555828
+Epoch: 33 Step:     23200 Training loss:  0.042566
+Epoch: 33 Step:     23300 Training loss:  0.040189
+Epoch: 33 Step:     23400 Training loss:  0.043644
+Epoch: 33 Step:     23500 Training loss:  0.042894
+Epoch: 33 Step:     23600 Training loss:  0.034410
+Epoch: 33 Step:     23700 Training loss:  0.049367
+Epoch: 33 Step:     23800 Training loss:  0.045817
+Epoch: 33 Validation loss: 0.04133357249812228
+Epoch: 34 Step:     23900 Training loss:  0.050113
+Epoch: 34 Step:     24000 Training loss:  0.042090
+Epoch: 34 Step:     24100 Training loss:  0.039960
+Epoch: 34 Step:     24200 Training loss:  0.042202
+Epoch: 34 Step:     24300 Training loss:  0.049147
+Epoch: 34 Step:     24400 Training loss:  0.051270
+Epoch: 34 Step:     24500 Training loss:  0.046112
+Epoch: 34 Validation loss: 0.04413227742348892
+Epoch: 35 Step:     24600 Training loss:  0.043270
+Epoch: 35 Step:     24700 Training loss:  0.037672
+Epoch: 35 Step:     24800 Training loss:  0.041512
+Epoch: 35 Step:     24900 Training loss:  0.048584
+Epoch: 35 Step:     25000 Training loss:  0.046448
+Epoch: 35 Step:     25100 Training loss:  0.051155
+Epoch: 35 Step:     25200 Training loss:  0.049610
+Epoch: 35 Validation loss: 0.03888147554679769
+Epoch: 36 Step:     25300 Training loss:  0.040662
+Epoch: 36 Step:     25400 Training loss:  0.049416
+Epoch: 36 Step:     25500 Training loss:  0.043144
+Epoch: 36 Step:     25600 Training loss:  0.046772
+Epoch: 36 Step:     25700 Training loss:  0.041946
+Epoch: 36 Step:     25800 Training loss:  0.039319
+Epoch: 36 Step:     25900 Training loss:  0.056998
+Epoch: 36 Validation loss: 0.04249961359273408
+Epoch: 37 Step:     26000 Training loss:  0.046309
+Epoch: 37 Step:     26100 Training loss:  0.050239
+Epoch: 37 Step:     26200 Training loss:  0.047011
+Epoch: 37 Step:     26300 Training loss:  0.042832
+Epoch: 37 Step:     26400 Training loss:  0.043672
+Epoch: 37 Step:     26500 Training loss:  0.041306
+Epoch: 37 Step:     26600 Training loss:  0.043282
+Epoch: 37 Step:     26700 Training loss:  0.044833
+Epoch: 37 Validation loss: 0.04698769818397536
+Epoch: 38 Step:     26800 Training loss:  0.038018
+Epoch: 38 Step:     26900 Training loss:  0.044832
+Epoch: 38 Step:     27000 Training loss:  0.044280
+Epoch: 38 Step:     27100 Training loss:  0.040656
+Epoch: 38 Step:     27200 Training loss:  0.048486
+Epoch: 38 Step:     27300 Training loss:  0.040051
+Epoch: 38 Step:     27400 Training loss:  0.044056
+Epoch: 38 Validation loss: 0.04192387449424624
+Epoch: 39 Step:     27500 Training loss:  0.041358
+Epoch: 39 Step:     27600 Training loss:  0.041714
+Epoch: 39 Step:     27700 Training loss:  0.039062
+Epoch: 39 Step:     27800 Training loss:  0.040773
+Epoch: 39 Step:     27900 Training loss:  0.045194
+Epoch: 39 Step:     28000 Training loss:  0.042832
+Epoch: 39 Step:     28100 Training loss:  0.037986
+Epoch: 39 Validation loss: 0.043791944026083184
+Epoch: 40 Step:     28200 Training loss:  0.040740
+Epoch: 40 Step:     28300 Training loss:  0.047603
+Epoch: 40 Step:     28400 Training loss:  0.047226
+Epoch: 40 Step:     28500 Training loss:  0.055995
+Epoch: 40 Step:     28600 Training loss:  0.046059
+Epoch: 40 Step:     28700 Training loss:  0.044296
+Epoch: 40 Step:     28800 Training loss:  0.046898
+Epoch: 40 Validation loss: 0.04029687224090963
+Epoch: 41 Step:     28900 Training loss:  0.045470
+Epoch: 41 Step:     29000 Training loss:  0.045552
+Epoch: 41 Step:     29100 Training loss:  0.042776
+Epoch: 41 Step:     29200 Training loss:  0.042940
+Epoch: 41 Step:     29300 Training loss:  0.044600
+Epoch: 41 Step:     29400 Training loss:  0.041149
+Epoch: 41 Step:     29500 Training loss:  0.037334
+Epoch: 41 Step:     29600 Training loss:  0.043733
+Epoch: 41 Validation loss: 0.04121878874546664
+Epoch: 42 Step:     29700 Training loss:  0.046919
+Epoch: 42 Step:     29800 Training loss:  0.041200
+Epoch: 42 Step:     29900 Training loss:  0.039951
+Epoch: 42 Step:     30000 Training loss:  0.052366
+Epoch: 42 Step:     30100 Training loss:  0.047832
+Epoch: 42 Step:     30200 Training loss:  0.046065
+Epoch: 42 Step:     30300 Training loss:  0.048576
+Epoch: 42 Validation loss: 0.045670510382180056
+Epoch: 43 Step:     30400 Training loss:  0.044289
+Epoch: 43 Step:     30500 Training loss:  0.044878
+Epoch: 43 Step:     30600 Training loss:  0.037290
+Epoch: 43 Step:     30700 Training loss:  0.051345
+Epoch: 43 Step:     30800 Training loss:  0.055731
+Epoch: 43 Step:     30900 Training loss:  0.040400
+Epoch: 43 Step:     31000 Training loss:  0.051819
+Epoch: 43 Validation loss: 0.04097979825331969
+Epoch: 44 Step:     31100 Training loss:  0.049365
+Epoch: 44 Step:     31200 Training loss:  0.047917
+Epoch: 44 Step:     31300 Training loss:  0.044890
+Epoch: 44 Step:     31400 Training loss:  0.040061
+Epoch: 44 Step:     31500 Training loss:  0.051317
+Epoch: 44 Step:     31600 Training loss:  0.042304
+Epoch: 44 Step:     31700 Training loss:  0.040596
+Epoch: 44 Validation loss: 0.04069432337286968
+Epoch: 45 Step:     31800 Training loss:  0.051264
+Epoch: 45 Step:     31900 Training loss:  0.053925
+Epoch: 45 Step:     32000 Training loss:  0.041720
+Epoch: 45 Step:     32100 Training loss:  0.046906
+Epoch: 45 Step:     32200 Training loss:  0.051543
+Epoch: 45 Step:     32300 Training loss:  0.044612
+Epoch: 45 Step:     32400 Training loss:  0.041159
+Epoch: 45 Validation loss: 0.04255320063391745
+Epoch: 46 Step:     32500 Training loss:  0.045207
+Epoch: 46 Step:     32600 Training loss:  0.038290
+Epoch: 46 Step:     32700 Training loss:  0.048794
+Epoch: 46 Step:     32800 Training loss:  0.038990
+Epoch: 46 Step:     32900 Training loss:  0.042561
+Epoch: 46 Step:     33000 Training loss:  0.050369
+Epoch: 46 Step:     33100 Training loss:  0.047351
+Epoch: 46 Step:     33200 Training loss:  0.045722
+Epoch: 46 Validation loss: 0.041728342734817146
+Epoch: 47 Step:     33300 Training loss:  0.056997
+Epoch: 47 Step:     33400 Training loss:  0.039435
+Epoch: 47 Step:     33500 Training loss:  0.043726
+Epoch: 47 Step:     33600 Training loss:  0.040626
+Epoch: 47 Step:     33700 Training loss:  0.047355
+Epoch: 47 Step:     33800 Training loss:  0.048041
+Epoch: 47 Step:     33900 Training loss:  0.046870
+Epoch: 47 Validation loss: 0.046318572014570236
+Epoch: 48 Step:     34000 Training loss:  0.057978
+Epoch: 48 Step:     34100 Training loss:  0.045830
+Epoch: 48 Step:     34200 Training loss:  0.045403
+Epoch: 48 Step:     34300 Training loss:  0.040124
+Epoch: 48 Step:     34400 Training loss:  0.050907
+Epoch: 48 Step:     34500 Training loss:  0.045234
+Epoch: 48 Step:     34600 Training loss:  0.043159
+Epoch: 48 Validation loss: 0.03866116310231352
+Epoch: 49 Step:     34700 Training loss:  0.039722
+Epoch: 49 Step:     34800 Training loss:  0.040647
+Epoch: 49 Step:     34900 Training loss:  0.047405
+Epoch: 49 Step:     35000 Training loss:  0.047971
+Epoch: 49 Step:     35100 Training loss:  0.049859
+Epoch: 49 Step:     35200 Training loss:  0.056271
+Epoch: 49 Step:     35300 Training loss:  0.042197
+Epoch: 49 Validation loss: 0.04049618608781681
+Epoch: 50 Step:     35400 Training loss:  0.045463
+Epoch: 50 Step:     35500 Training loss:  0.041197
+Epoch: 50 Step:     35600 Training loss:  0.051804
+Epoch: 50 Step:     35700 Training loss:  0.039543
+Epoch: 50 Step:     35800 Training loss:  0.044207
+Epoch: 50 Step:     35900 Training loss:  0.046561
+Epoch: 50 Step:     36000 Training loss:  0.047105
+Epoch: 50 Step:     36100 Training loss:  0.043545
+Epoch: 50 Validation loss: 0.042137394708711744
+Epoch: 51 Step:     36200 Training loss:  0.043429
+Epoch: 51 Step:     36300 Training loss:  0.043484
+Epoch: 51 Step:     36400 Training loss:  0.039689
+Epoch: 51 Step:     36500 Training loss:  0.053902
+Epoch: 51 Step:     36600 Training loss:  0.059417
+Epoch: 51 Step:     36700 Training loss:  0.046099
+Epoch: 51 Step:     36800 Training loss:  0.051045
+Epoch: 51 Validation loss: 0.04295516332638436
+Epoch: 52 Step:     36900 Training loss:  0.047506
+Epoch: 52 Step:     37000 Training loss:  0.042846
+Epoch: 52 Step:     37100 Training loss:  0.048824
+Epoch: 52 Step:     37200 Training loss:  0.044312
+Epoch: 52 Step:     37300 Training loss:  0.044455
+Epoch: 52 Step:     37400 Training loss:  0.047202
+Epoch: 52 Step:     37500 Training loss:  0.045876
+Epoch: 52 Validation loss: 0.049499933360423444
+Epoch: 53 Step:     37600 Training loss:  0.049878
+Epoch: 53 Step:     37700 Training loss:  0.047113
+Epoch: 53 Step:     37800 Training loss:  0.044198
+Epoch: 53 Step:     37900 Training loss:  0.043192
+Epoch: 53 Step:     38000 Training loss:  0.042995
+Epoch: 53 Step:     38100 Training loss:  0.044985
+Epoch: 53 Step:     38200 Training loss:  0.049653
+Epoch: 53 Validation loss: 0.04144611796319197
+Epoch: 54 Step:     38300 Training loss:  0.040313
+Epoch: 54 Step:     38400 Training loss:  0.051259
+Epoch: 54 Step:     38500 Training loss:  0.041863
+Epoch: 54 Step:     38600 Training loss:  0.049696
+Epoch: 54 Step:     38700 Training loss:  0.042459
+Epoch: 54 Step:     38800 Training loss:  0.045057
+Epoch: 54 Step:     38900 Training loss:  0.045791
+Epoch: 54 Validation loss: 0.04747889621030305
+Epoch: 55 Step:     39000 Training loss:  0.051455
+Epoch: 55 Step:     39100 Training loss:  0.042920
+Epoch: 55 Step:     39200 Training loss:  0.050099
+Epoch: 55 Step:     39300 Training loss:  0.041221
+Epoch: 55 Step:     39400 Training loss:  0.040302
+Epoch: 55 Step:     39500 Training loss:  0.056182
+Epoch: 55 Step:     39600 Training loss:  0.041732
+Epoch: 55 Step:     39700 Training loss:  0.040213
+Epoch: 55 Validation loss: 0.04183234808885533
+Epoch: 56 Step:     39800 Training loss:  0.054590
+Epoch: 56 Step:     39900 Training loss:  0.056399
+Epoch: 56 Step:     40000 Training loss:  0.041195
+Epoch: 56 Step:     40100 Training loss:  0.044262
+Epoch: 56 Step:     40200 Training loss:  0.047447
+Epoch: 56 Step:     40300 Training loss:  0.044049
+Epoch: 56 Step:     40400 Training loss:  0.044146
+Epoch: 56 Validation loss: 0.039587710826581225
+Epoch: 57 Step:     40500 Training loss:  0.043817
+Epoch: 57 Step:     40600 Training loss:  0.042701
+Epoch: 57 Step:     40700 Training loss:  0.046443
+Epoch: 57 Step:     40800 Training loss:  0.046154
+Epoch: 57 Step:     40900 Training loss:  0.041720
+Epoch: 57 Step:     41000 Training loss:  0.054538
+Epoch: 57 Step:     41100 Training loss:  0.040621
+Epoch: 57 Validation loss: 0.04389789884073147
+Epoch: 58 Step:     41200 Training loss:  0.050528
+Epoch: 58 Step:     41300 Training loss:  0.041327
+Epoch: 58 Step:     41400 Training loss:  0.043508
+Epoch: 58 Step:     41500 Training loss:  0.046672
+Epoch: 58 Step:     41600 Training loss:  0.040119
+Epoch: 58 Step:     41700 Training loss:  0.054454
+Epoch: 58 Step:     41800 Training loss:  0.044129
+Epoch: 58 Validation loss: 0.04602449830027594
+Epoch: 59 Step:     41900 Training loss:  0.053570
+Epoch: 59 Step:     42000 Training loss:  0.047178
+Epoch: 59 Step:     42100 Training loss:  0.046885
+Epoch: 59 Step:     42200 Training loss:  0.063137
+Epoch: 59 Step:     42300 Training loss:  0.041025
+Epoch: 59 Step:     42400 Training loss:  0.042562
+Epoch: 59 Step:     42500 Training loss:  0.048045
+Epoch: 59 Validation loss: 0.039336784630294004
+Epoch: 60 Step:     42600 Training loss:  0.041477
+Epoch: 60 Step:     42700 Training loss:  0.036532
+Epoch: 60 Step:     42800 Training loss:  0.044238
+Epoch: 60 Step:     42900 Training loss:  0.047720
+Epoch: 60 Step:     43000 Training loss:  0.045175
+Epoch: 60 Step:     43100 Training loss:  0.048001
+Epoch: 60 Step:     43200 Training loss:  0.044544
+Epoch: 60 Step:     43300 Training loss:  0.043327
+Epoch: 60 Validation loss: 0.05074888633357154
+Epoch: 61 Step:     43400 Training loss:  0.044829
+Epoch: 61 Step:     43500 Training loss:  0.043951
+Epoch: 61 Step:     43600 Training loss:  0.046725
+Epoch: 61 Step:     43700 Training loss:  0.039393
+Epoch: 61 Step:     43800 Training loss:  0.050470
+Epoch: 61 Step:     43900 Training loss:  0.039600
+Epoch: 61 Step:     44000 Training loss:  0.039619
+Epoch: 61 Validation loss: 0.04203397580894871
+Epoch: 62 Step:     44100 Training loss:  0.041510
+Epoch: 62 Step:     44200 Training loss:  0.043456
+Epoch: 62 Step:     44300 Training loss:  0.045534
+Epoch: 62 Step:     44400 Training loss:  0.047546
+Epoch: 62 Step:     44500 Training loss:  0.041860
+Epoch: 62 Step:     44600 Training loss:  0.041585
+Epoch: 62 Step:     44700 Training loss:  0.047843
+Epoch: 62 Validation loss: 0.048895486545015646
+Epoch: 63 Step:     44800 Training loss:  0.046510
+Epoch: 63 Step:     44900 Training loss:  0.045576
+Epoch: 63 Step:     45000 Training loss:  0.052537
+Epoch: 63 Step:     45100 Training loss:  0.043309
+Epoch: 63 Step:     45200 Training loss:  0.046258
+Epoch: 63 Step:     45300 Training loss:  0.045159
+Epoch: 63 Step:     45400 Training loss:  0.046140
+Epoch: 63 Validation loss: 0.041054267562241946
+Epoch: 64 Step:     45500 Training loss:  0.044132
+Epoch: 64 Step:     45600 Training loss:  0.040826
+Epoch: 64 Step:     45700 Training loss:  0.047234
+Epoch: 64 Step:     45800 Training loss:  0.037078
+Epoch: 64 Step:     45900 Training loss:  0.040354
+Epoch: 64 Step:     46000 Training loss:  0.053508
+Epoch: 64 Step:     46100 Training loss:  0.044684
+Epoch: 64 Step:     46200 Training loss:  0.055630
+Epoch: 64 Validation loss: 0.042339075266739024
+Epoch: 65 Step:     46300 Training loss:  0.050791
+Epoch: 65 Step:     46400 Training loss:  0.049257
+Epoch: 65 Step:     46500 Training loss:  0.048653
+Epoch: 65 Step:     46600 Training loss:  0.049502
+Epoch: 65 Step:     46700 Training loss:  0.046880
+Epoch: 65 Step:     46800 Training loss:  0.048323
+Epoch: 65 Step:     46900 Training loss:  0.055678
+Epoch: 65 Validation loss: 0.05736768728005137
+Epoch: 66 Step:     47000 Training loss:  0.042202
+Epoch: 66 Step:     47100 Training loss:  0.058208
+Epoch: 66 Step:     47200 Training loss:  0.042664
+Epoch: 66 Step:     47300 Training loss:  0.046977
+Epoch: 66 Step:     47400 Training loss:  0.048593
+Epoch: 66 Step:     47500 Training loss:  0.042061
+Epoch: 66 Step:     47600 Training loss:  0.047296
+Epoch: 66 Validation loss: 0.041187435658513634
+Epoch: 67 Step:     47700 Training loss:  0.039172
+Epoch: 67 Step:     47800 Training loss:  0.041035
+Epoch: 67 Step:     47900 Training loss:  0.041286
+Epoch: 67 Step:     48000 Training loss:  0.036517
+Epoch: 67 Step:     48100 Training loss:  0.057056
+Epoch: 67 Step:     48200 Training loss:  0.045109
+Epoch: 67 Step:     48300 Training loss:  0.046317
+Epoch: 67 Validation loss: 0.04503108033739426
+Epoch: 68 Step:     48400 Training loss:  0.046565
+Epoch: 68 Step:     48500 Training loss:  0.046948
+Epoch: 68 Step:     48600 Training loss:  0.041482
+Epoch: 68 Step:     48700 Training loss:  0.048623
+Epoch: 68 Step:     48800 Training loss:  0.042825
+Epoch: 68 Step:     48900 Training loss:  0.042238
+Epoch: 68 Step:     49000 Training loss:  0.056866
+Epoch: 68 Validation loss: 0.04047342073082348
+Epoch: 69 Step:     49100 Training loss:  0.048377
+Epoch: 69 Step:     49200 Training loss:  0.040505
+Epoch: 69 Step:     49300 Training loss:  0.043330
+Epoch: 69 Step:     49400 Training loss:  0.043042
+Epoch: 69 Step:     49500 Training loss:  0.050279
+Epoch: 69 Step:     49600 Training loss:  0.038690
+Epoch: 69 Step:     49700 Training loss:  0.039792
+Epoch: 69 Step:     49800 Training loss:  0.047623
+Epoch: 69 Validation loss: 0.0410717598338058
+Epoch: 70 Step:     49900 Training loss:  0.046706
+Epoch: 70 Step:     50000 Training loss:  0.042888
+Epoch: 70 Step:     50100 Training loss:  0.040659
+Epoch: 70 Step:     50200 Training loss:  0.041874
+Epoch: 70 Step:     50300 Training loss:  0.045016
+Epoch: 70 Step:     50400 Training loss:  0.047814
+Epoch: 70 Step:     50500 Training loss:  0.044761
+Epoch: 70 Validation loss: 0.04829954237177752
+Epoch: 71 Step:     50600 Training loss:  0.036340
+Epoch: 71 Step:     50700 Training loss:  0.042530
+Epoch: 71 Step:     50800 Training loss:  0.040546
+Epoch: 71 Step:     50900 Training loss:  0.052553
+Epoch: 71 Step:     51000 Training loss:  0.052909
+Epoch: 71 Step:     51100 Training loss:  0.046451
+Epoch: 71 Step:     51200 Training loss:  0.043542
+Epoch: 71 Validation loss: 0.04156686000273999
+Epoch: 72 Step:     51300 Training loss:  0.046783
+Epoch: 72 Step:     51400 Training loss:  0.041652
+Epoch: 72 Step:     51500 Training loss:  0.036805
+Epoch: 72 Step:     51600 Training loss:  0.038396
+Epoch: 72 Step:     51700 Training loss:  0.042477
+Epoch: 72 Step:     51800 Training loss:  0.054721
+Epoch: 72 Step:     51900 Training loss:  0.035575
+Epoch: 72 Validation loss: 0.04653237180577384
+Epoch: 73 Step:     52000 Training loss:  0.043874
+Epoch: 73 Step:     52100 Training loss:  0.040905
+Epoch: 73 Step:     52200 Training loss:  0.045831
+Epoch: 73 Step:     52300 Training loss:  0.041331
+Epoch: 73 Step:     52400 Training loss:  0.045440
+Epoch: 73 Step:     52500 Training loss:  0.044998
+Epoch: 73 Step:     52600 Training loss:  0.049494
+Epoch: 73 Step:     52700 Training loss:  0.045605
+Epoch: 73 Validation loss: 0.04453136163633227
+Epoch: 74 Step:     52800 Training loss:  0.039611
+Epoch: 74 Step:     52900 Training loss:  0.042925
+Epoch: 74 Step:     53000 Training loss:  0.050313
+Epoch: 74 Step:     53100 Training loss:  0.045966
+Epoch: 74 Step:     53200 Training loss:  0.044091
+Epoch: 74 Step:     53300 Training loss:  0.042120
+Epoch: 74 Step:     53400 Training loss:  0.045975
+Epoch: 74 Validation loss: 0.04883568969685674
+Epoch: 75 Step:     53500 Training loss:  0.043350
+Epoch: 75 Step:     53600 Training loss:  0.035965
+Epoch: 75 Step:     53700 Training loss:  0.050673
+Epoch: 75 Step:     53800 Training loss:  0.045830
+Epoch: 75 Step:     53900 Training loss:  0.045126
+Epoch: 75 Step:     54000 Training loss:  0.047964
+Epoch: 75 Step:     54100 Training loss:  0.043231
+Epoch: 75 Validation loss: 0.0420166895441387
+Epoch: 76 Step:     54200 Training loss:  0.042347
+Epoch: 76 Step:     54300 Training loss:  0.044181
+Epoch: 76 Step:     54400 Training loss:  0.039147
+Epoch: 76 Step:     54500 Training loss:  0.047556
+Epoch: 76 Step:     54600 Training loss:  0.043281
+Epoch: 76 Step:     54700 Training loss:  0.036620
+Epoch: 76 Step:     54800 Training loss:  0.043829
+Epoch: 76 Validation loss: 0.05877667552103167
+Epoch: 77 Step:     54900 Training loss:  0.044128
+Epoch: 77 Step:     55000 Training loss:  0.047635
+Epoch: 77 Step:     55100 Training loss:  0.047813
+Epoch: 77 Step:     55200 Training loss:  0.052630
+Epoch: 77 Step:     55300 Training loss:  0.038247
+Epoch: 77 Step:     55400 Training loss:  0.043970
+Epoch: 77 Step:     55500 Training loss:  0.038792
+Epoch: 77 Validation loss: 0.046587016001559685
+Epoch: 78 Step:     55600 Training loss:  0.041812
+Epoch: 78 Step:     55700 Training loss:  0.046178
+Epoch: 78 Step:     55800 Training loss:  0.044521
+Epoch: 78 Step:     55900 Training loss:  0.043406
+Epoch: 78 Step:     56000 Training loss:  0.051315
+Epoch: 78 Step:     56100 Training loss:  0.058910
+Epoch: 78 Step:     56200 Training loss:  0.042685
+Epoch: 78 Step:     56300 Training loss:  0.040855
+Epoch: 78 Validation loss: 0.045747519799188716
+Epoch: 79 Step:     56400 Training loss:  0.048781
+Epoch: 79 Step:     56500 Training loss:  0.039943
+Epoch: 79 Step:     56600 Training loss:  0.045801
+Epoch: 79 Step:     56700 Training loss:  0.038508
+Epoch: 79 Step:     56800 Training loss:  0.048201
+Epoch: 79 Step:     56900 Training loss:  0.045473
+Epoch: 79 Step:     57000 Training loss:  0.051867
+Epoch: 79 Validation loss: 0.04221375139007246
+Epoch: 80 Step:     57100 Training loss:  0.042113
+Epoch: 80 Step:     57200 Training loss:  0.046444
+Epoch: 80 Step:     57300 Training loss:  0.041005
+Epoch: 80 Step:     57400 Training loss:  0.054037
+Epoch: 80 Step:     57500 Training loss:  0.042186
+Epoch: 80 Step:     57600 Training loss:  0.043665
+Epoch: 80 Step:     57700 Training loss:  0.038441
+Epoch: 80 Validation loss: 0.06184789496991369
+Epoch: 81 Step:     57800 Training loss:  0.046449
+Epoch: 81 Step:     57900 Training loss:  0.042008
+Epoch: 81 Step:     58000 Training loss:  0.042759
+Epoch: 81 Step:     58100 Training loss:  0.057054
+Epoch: 81 Step:     58200 Training loss:  0.041521
+Epoch: 81 Step:     58300 Training loss:  0.044226
+Epoch: 81 Step:     58400 Training loss:  0.041395
+Epoch: 81 Validation loss: 0.042191160239891154
+Epoch: 82 Step:     58500 Training loss:  0.047549
+Epoch: 82 Step:     58600 Training loss:  0.058765
+Epoch: 82 Step:     58700 Training loss:  0.050385
+Epoch: 82 Step:     58800 Training loss:  0.046598
+Epoch: 82 Step:     58900 Training loss:  0.047749
+Epoch: 82 Step:     59000 Training loss:  0.047146
+Epoch: 82 Step:     59100 Training loss:  0.051654
+Epoch: 82 Step:     59200 Training loss:  0.040063
+Epoch: 82 Validation loss: 0.04837983828667857
+Epoch: 83 Step:     59300 Training loss:  0.043083
+Epoch: 83 Step:     59400 Training loss:  0.039394
+Epoch: 83 Step:     59500 Training loss:  0.051081
+Epoch: 83 Step:     59600 Training loss:  0.040535
+Epoch: 83 Step:     59700 Training loss:  0.047016
+Epoch: 83 Step:     59800 Training loss:  0.038427
+Epoch: 83 Step:     59900 Training loss:  0.045387
+Epoch: 83 Validation loss: 0.04473700000036166
+Epoch: 84 Step:     60000 Training loss:  0.052050
+Epoch: 84 Step:     60100 Training loss:  0.044368
+Epoch: 84 Step:     60200 Training loss:  0.043314
+Epoch: 84 Step:     60300 Training loss:  0.043713
+Epoch: 84 Step:     60400 Training loss:  0.041354
+Epoch: 84 Step:     60500 Training loss:  0.042799
+Epoch: 84 Step:     60600 Training loss:  0.044467
+Epoch: 84 Validation loss: 0.042652173246738416
+Epoch: 85 Step:     60700 Training loss:  0.041044
+Epoch: 85 Step:     60800 Training loss:  0.037455
+Epoch: 85 Step:     60900 Training loss:  0.041350
+Epoch: 85 Step:     61000 Training loss:  0.040630
+Epoch: 85 Step:     61100 Training loss:  0.049189
+Epoch: 85 Step:     61200 Training loss:  0.048426
+Epoch: 85 Step:     61300 Training loss:  0.059939
+Epoch: 85 Validation loss: 0.043776135837686234
+Epoch: 86 Step:     61400 Training loss:  0.042441
+Epoch: 86 Step:     61500 Training loss:  0.047497
+Epoch: 86 Step:     61600 Training loss:  0.056660
+Epoch: 86 Step:     61700 Training loss:  0.045000
+Epoch: 86 Step:     61800 Training loss:  0.043879
+Epoch: 86 Step:     61900 Training loss:  0.050920
+Epoch: 86 Step:     62000 Training loss:  0.052582
+Epoch: 86 Validation loss: 0.046403936627838344
+Epoch: 87 Step:     62100 Training loss:  0.039369
+Epoch: 87 Step:     62200 Training loss:  0.049133
+Epoch: 87 Step:     62300 Training loss:  0.043836
+Epoch: 87 Step:     62400 Training loss:  0.050934
+Epoch: 87 Step:     62500 Training loss:  0.054519
+Epoch: 87 Step:     62600 Training loss:  0.039571
+Epoch: 87 Step:     62700 Training loss:  0.046102
+Epoch: 87 Step:     62800 Training loss:  0.050913
+Epoch: 87 Validation loss: 0.043337519420085895
+Epoch: 88 Step:     62900 Training loss:  0.042428
+Epoch: 88 Step:     63000 Training loss:  0.037352
+Epoch: 88 Step:     63100 Training loss:  0.050740
+Epoch: 88 Step:     63200 Training loss:  0.038414
+Epoch: 88 Step:     63300 Training loss:  0.045003
+Epoch: 88 Step:     63400 Training loss:  0.052379
+Epoch: 88 Step:     63500 Training loss:  0.042397
+Epoch: 88 Validation loss: 0.04314746736472356
+Epoch: 89 Step:     63600 Training loss:  0.043420
+Epoch: 89 Step:     63700 Training loss:  0.047213
+Epoch: 89 Step:     63800 Training loss:  0.043817
+Epoch: 89 Step:     63900 Training loss:  0.046323
+Epoch: 89 Step:     64000 Training loss:  0.042628
+Epoch: 89 Step:     64100 Training loss:  0.049329
+Epoch: 89 Step:     64200 Training loss:  0.042290
+Epoch: 89 Validation loss: 0.04099449385767397
+Epoch: 90 Step:     64300 Training loss:  0.041773
+Epoch: 90 Step:     64400 Training loss:  0.042742
+Epoch: 90 Step:     64500 Training loss:  0.042421
+Epoch: 90 Step:     64600 Training loss:  0.041115
+Epoch: 90 Step:     64700 Training loss:  0.054236
+Epoch: 90 Step:     64800 Training loss:  0.049053
+Epoch: 90 Step:     64900 Training loss:  0.046522
+Epoch: 90 Validation loss: 0.04222984723566811
+Epoch: 91 Step:     65000 Training loss:  0.045555
+Epoch: 91 Step:     65100 Training loss:  0.040457
+Epoch: 91 Step:     65200 Training loss:  0.040290
+Epoch: 91 Step:     65300 Training loss:  0.042409
+Epoch: 91 Step:     65400 Training loss:  0.041360
+Epoch: 91 Step:     65500 Training loss:  0.064708
+Epoch: 91 Step:     65600 Training loss:  0.055064
+Epoch: 91 Step:     65700 Training loss:  0.044110
+Epoch: 91 Validation loss: 0.045684442427999156
+Epoch: 92 Step:     65800 Training loss:  0.048856
+Epoch: 92 Step:     65900 Training loss:  0.043862
+Epoch: 92 Step:     66000 Training loss:  0.044753
+Epoch: 92 Step:     66100 Training loss:  0.040573
+Epoch: 92 Step:     66200 Training loss:  0.043242
+Epoch: 92 Step:     66300 Training loss:  0.041196
+Epoch: 92 Step:     66400 Training loss:  0.048649
+Epoch: 92 Validation loss: 0.04248931113144626
+Epoch: 93 Step:     66500 Training loss:  0.040539
+Epoch: 93 Step:     66600 Training loss:  0.045642
+Epoch: 93 Step:     66700 Training loss:  0.048027
+Epoch: 93 Step:     66800 Training loss:  0.045197
+Epoch: 93 Step:     66900 Training loss:  0.043395
+Epoch: 93 Step:     67000 Training loss:  0.041206
+Epoch: 93 Step:     67100 Training loss:  0.039402
+Epoch: 93 Validation loss: 0.04246188570623812
+Epoch: 94 Step:     67200 Training loss:  0.044048
+Epoch: 94 Step:     67300 Training loss:  0.051937
+Epoch: 94 Step:     67400 Training loss:  0.040369
+Epoch: 94 Step:     67500 Training loss:  0.048837
+Epoch: 94 Step:     67600 Training loss:  0.046070
+Epoch: 94 Step:     67700 Training loss:  0.042137
+Epoch: 94 Step:     67800 Training loss:  0.045533
+Traceback (most recent call last):
+  File "train.py", line 72, in <module>
+    train(args)
+  File "train.py", line 36, in train
+    coarse, fine = model(batch_data, training=True)
+  File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 64, in error_handler
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/keras/engine/base_layer.py", line 1096, in __call__
+    outputs = call_fn(inputs, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 92, in error_handler
+    return fn(*args, **kwargs)
+  File "/content/PCC-Net/models/pcn.py", line 118, in call
+    self.add_metric(loss_coarse, "loss_coarse_emd")
+  File "/usr/local/lib/python3.7/dist-packages/keras/engine/base_layer.py", line 1742, in add_metric
+    metric_obj(value)
+  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 238, in __call__
+    replica_local_fn, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/keras/distribute/distributed_training_utils.py", line 60, in call_replica_local_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 218, in replica_local_fn
+    update_op = self.update_state(*args, **kwargs)  # pylint: disable=not-callable
+  File "/usr/local/lib/python3.7/dist-packages/keras/utils/metrics_utils.py", line 70, in decorated
+    update_op = update_state_fn(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 178, in update_state_fn
+    return ag_update_state(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/autograph/impl/api.py", line 689, in wrapper
+    return converted_call(f, args, kwargs, options=options)
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/autograph/impl/api.py", line 331, in converted_call
+    return _call_unconverted(f, args, kwargs, options, False)
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/autograph/impl/api.py", line 458, in _call_unconverted
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 482, in update_state
+    num_values = tf.cast(tf.size(values), self._dtype)
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/util/dispatch.py", line 1082, in op_dispatch_handler
+    return dispatch_target(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/ops/math_ops.py", line 1002, in cast
+    x = gen_math_ops.cast(x, base_type, name=name)
+  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/ops/gen_math_ops.py", line 1998, in cast
+    _ctx, "Cast", name, x, "DstT", DstT, "Truncate", Truncate)
+KeyboardInterrupt

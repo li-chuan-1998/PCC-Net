@@ -14,7 +14,7 @@ def get_file_paths(complete_dir, is_training=True):
 
 
 class Dataloader:
-    def __init__(self, complete_dir, is_training=True, batch_size=32):
+    def __init__(self, complete_dir, is_training=True, batch_size=32, shuffle=True):
         self.complete_dir = complete_dir
         self.batch_size = batch_size
         self.list_pcd_path = get_file_paths(complete_dir, is_training=is_training)
