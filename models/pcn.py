@@ -10,7 +10,7 @@ class PN_Conv1D_Layer(tf.keras.layers.Layer):
         self.conv = tf.keras.layers.Conv1D(self.channels, 1, input_shape=input_shape)
         self.bn = tf.keras.layers.BatchNormalization(momentum=self.momentum)
 
-    def call(self, inputs: tf.Tensor, training=None) -> tf.Tensor:  # pylint: disable=arguments-differ
+    def call(self, inputs: tf.Tensor, training=None):
         return tf.nn.relu(self.bn(self.conv(inputs), training))
 
 class Encoder_PN(tf.keras.layers.Layer):

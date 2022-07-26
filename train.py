@@ -55,19 +55,26 @@ def train(args):
 
             if (total_step) % args.log_freq == 0:
                 cur = (time.time() - train_start)/(total_step//args.log_freq)
-                print(f"Epoch:{epoch:3d} Step:{total_step:8d} Loss:{float(loss_value):.6f} Min/100step:{cur/60:.3f}")
+                print(f"Epoch:{epoch:3d} Step:{total_step:8d} Loss:{float(loss_value):.6f} {cur/60:.3f}Min/100step")
 
         # Evaluation
         if epoch % args.eval_freq == 0:
+            valid_start = time.time()
             print("Validating".center(100,"-"))
             total_loss = 0
             for step, (input, npts, gt) in enumerate(ds_valid_iter):
                 coarse, fine = model((input, npts), training=False)
-                total_loss += float(sum(model.losses))
-            print(f"Epoch:{epoch:3d} Validation loss:{total_loss/(step+1)}")
+                """Total Loss Calculation"""
+                gt_ds = gt[:, :coarse.shape[1], :]
+                loss_coarse = earth_mover(coarse, gt_ds)
+                loss_fine = chamfer(fine, gt)
+                total_loss += (loss_coarse + loss_fine * get_alpha(total_step))
+            val_end = time.time() - valid_start
+            print(f"Epoch:{epoch:3d} Validation loss:{total_loss/(step+1)} {val_end/60:.3f}Min")
 
         # Save model's current weights
         if epoch % args.save_freq == 0:
+            print(f"Model is savd at {args.save_path}".center(100,"-"))
             model.save(args.save_path)
 
 if __name__ == '__main__':

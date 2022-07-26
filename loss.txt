@@ -786,45 +786,4 @@ Epoch: 94 Step:     67500 Training loss:  0.048837
 Epoch: 94 Step:     67600 Training loss:  0.046070
 Epoch: 94 Step:     67700 Training loss:  0.042137
 Epoch: 94 Step:     67800 Training loss:  0.045533
-Traceback (most recent call last):
-  File "train.py", line 72, in <module>
-    train(args)
-  File "train.py", line 36, in train
-    coarse, fine = model(batch_data, training=True)
-  File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 64, in error_handler
-    return fn(*args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/keras/engine/base_layer.py", line 1096, in __call__
-    outputs = call_fn(inputs, *args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/keras/utils/traceback_utils.py", line 92, in error_handler
-    return fn(*args, **kwargs)
-  File "/content/PCC-Net/models/pcn.py", line 118, in call
-    self.add_metric(loss_coarse, "loss_coarse_emd")
-  File "/usr/local/lib/python3.7/dist-packages/keras/engine/base_layer.py", line 1742, in add_metric
-    metric_obj(value)
-  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 238, in __call__
-    replica_local_fn, *args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/keras/distribute/distributed_training_utils.py", line 60, in call_replica_local_fn
-    return fn(*args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 218, in replica_local_fn
-    update_op = self.update_state(*args, **kwargs)  # pylint: disable=not-callable
-  File "/usr/local/lib/python3.7/dist-packages/keras/utils/metrics_utils.py", line 70, in decorated
-    update_op = update_state_fn(*args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 178, in update_state_fn
-    return ag_update_state(*args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/autograph/impl/api.py", line 689, in wrapper
-    return converted_call(f, args, kwargs, options=options)
-  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/autograph/impl/api.py", line 331, in converted_call
-    return _call_unconverted(f, args, kwargs, options, False)
-  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/autograph/impl/api.py", line 458, in _call_unconverted
-    return f(*args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/keras/metrics.py", line 482, in update_state
-    num_values = tf.cast(tf.size(values), self._dtype)
-  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
-    return fn(*args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/util/dispatch.py", line 1082, in op_dispatch_handler
-    return dispatch_target(*args, **kwargs)
-  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/ops/math_ops.py", line 1002, in cast
-    x = gen_math_ops.cast(x, base_type, name=name)
-  File "/usr/local/lib/python3.7/dist-packages/tensorflow/python/ops/gen_math_ops.py", line 1998, in cast
-    _ctx, "Cast", name, x, "DstT", DstT, "Truncate", Truncate)
-KeyboardInterrupt
+
