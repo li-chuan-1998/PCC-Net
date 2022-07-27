@@ -11,7 +11,7 @@ class DataGenerator(tf.keras.utils.Sequence):
         self.batch_size = batch_size
         self.list_IDs = list_IDs
         self.shuffle = shuffle
-        self.shuffle_indexes()
+        self.on_epoch_end()
 
     def __len__(self):
         return int(np.floor(len(self.list_IDs) / self.batch_size))
@@ -22,7 +22,7 @@ class DataGenerator(tf.keras.utils.Sequence):
         inputs, gt = self.gen_batch_inputs(list_IDs_temp)
         return inputs, gt
 
-    def shuffle_indexes(self):
+    def on_epoch_end(self):
         'Updates indexes after each epoch'
         self.indexes = np.arange(len(self))
         if self.shuffle == True:
