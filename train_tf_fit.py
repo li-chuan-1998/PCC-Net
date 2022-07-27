@@ -31,7 +31,7 @@ def train(args):
         model.compile(optimizer=optimizer)
     
     print("Begin Training".center(100,"-"))
-    model.fit(ds_train, validation_data=ds_valid, epoch=10)
+    model.fit(ds_train, validation_data=ds_valid, epochs=10)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

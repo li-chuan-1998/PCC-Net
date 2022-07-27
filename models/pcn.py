@@ -41,7 +41,7 @@ class Encoder_PN(tf.keras.layers.Layer):
         return tf.concat(outputs, axis=0)
 
     def point_unpool(self, inputs, npts):
-        inputs = tf.split(inputs, inputs.shape[0], axis=0)
+        inputs = tf.split(inputs, len(npts), axis=0)
         outputs = [tf.tile(f, [1, npts[i], 1]) for i,f in enumerate(inputs)]
         return tf.concat(outputs, axis=1)
 
@@ -81,7 +81,7 @@ class Decoder(tf.keras.layers.Layer):
         y = tf.raw_ops.LinSpace(start=-self.grid_scale, stop=self.grid_scale, num=self.grid_size)
         grid = tf.meshgrid(x, y)
         grid = tf.expand_dims(tf.reshape(tf.stack(grid, axis=2), [-1, 2]), 0)
-        grid_feat = tf.tile(grid, [partial.shape[0], self.num_coarse, 1])
+        grid_feat = tf.tile(grid, [len(partial), self.num_coarse, 1])
 
         point_feat = tf.tile(tf.expand_dims(coarse, 2), [1, 1, self.grid_size ** 2, 1])
         point_feat = tf.reshape(point_feat, [-1, self.num_fine, 3])
@@ -92,10 +92,10 @@ class Decoder(tf.keras.layers.Layer):
 
         center = tf.tile(tf.expand_dims(coarse, 2), [1, 1, self.grid_size ** 2, 1])
         center = tf.reshape(center, [-1, self.num_fine, 3])
-
         fine = self.dense_3(self.dense_2(self.dense_1(feat))) + center
 
         return coarse, fine
+
 
 loss_tracker = tf.keras.metrics.Mean(name="loss")
 
@@ -134,7 +134,7 @@ class PCN(tf.keras.Model):
     def test_step(self, data):
         inputs, gt = data
         coarse, fine = self(inputs, training=False)
-        
+
         gt_ds = gt[:, :coarse.shape[1], :]
         loss_coarse = earth_mover(coarse, gt_ds)
         loss_fine = chamfer(fine, gt)
