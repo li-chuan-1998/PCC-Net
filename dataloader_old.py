@@ -14,11 +14,11 @@ def get_file_paths(complete_dir, training=True):
 
 
 class Dataloader:
-    def __init__(self, complete_dir, is_training, batch_size):
+    def __init__(self, complete_dir, is_training=True, batch_size=8):
         self.complete_dir = complete_dir
         self.batch_size = batch_size
         self.is_training = is_training
-        self.data = self.get_pcds_np() # partial, npts, complete
+        self.data = self.get_pcds_np()
         self.shuffled_idx = self.split_idx()
         self.counter = 0
     
@@ -59,3 +59,30 @@ class Dataloader:
             self.counter = 0
             self.shuffled_idx = self.split_idx()
             raise StopIteration
+
+    def split_to_batch(self):
+        batch_i, batch_n, batch_g = [], [], []
+        while self.counter < len(self.shuffled_idx):
+            temp_i, temp_n, temp_g = self.__next__()
+            batch_i.append(temp_i)
+            batch_n.append(temp_n)
+            batch_g.append(temp_g)
+        return batch_i, batch_n, batch_g 
+            
+
+
+    # def split_to_batch(self):
+    #     batch_i, batch_n, batch_g = [], [], []
+    #     for id in range(int(np.ceil(len(self.data[0])/self.batch_size))):
+    #         start = id*self.batch_size
+    #         end = None if start+self.batch_size >= len(self.data[0]) else start+self.batch_size
+    #         temp_i, temp_n, temp_g = [], [], []
+    #         for idx in range(start, end):
+    #             temp_i.extend(self.data[0][idx])
+    #             temp_n.append(self.data[1][idx])
+    #             temp_g.append(self.data[2][idx])
+    #         batch_i.append(temp_i)
+    #         batch_n.append(temp_n)
+    #         batch_g.append(temp_g)
+    #     return np.array(batch_i), np.array(batch_n), np.array(batch_g)
+
