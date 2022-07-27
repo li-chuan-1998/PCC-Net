@@ -125,10 +125,20 @@ class PCN(tf.keras.Model):
             loss_fine = chamfer(fine, gt)
             loss_value = loss_coarse + loss_fine * self.get_alpha(self.step)
 
-        # Compute gradients
         trainable_vars = self.trainable_variables
         gradients = tape.gradient(loss_value, trainable_vars)
         self.optimizer.apply_gradients(zip(gradients, trainable_vars))
+        loss_tracker.update_state(loss_value)
+        return {"loss": loss_tracker.result()}
+
+    def test_step(self, data):
+        inputs, gt = data
+        coarse, fine = self(inputs, training=False)
+        
+        gt_ds = gt[:, :coarse.shape[1], :]
+        loss_coarse = earth_mover(coarse, gt_ds)
+        loss_fine = chamfer(fine, gt)
+        loss_value = loss_coarse + loss_fine * self.get_alpha(self.step)
         loss_tracker.update_state(loss_value)
         return {"loss": loss_tracker.result()}
 
