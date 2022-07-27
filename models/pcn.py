@@ -1,4 +1,5 @@
 import tensorflow as tf
+from loss_utils.utils import *
 
 class PN_Conv1D_Layer(tf.keras.layers.Layer):
     def __init__(self, channels, momentum=0.5, name="pointnet_conv1d", **kwargs):
@@ -96,11 +97,14 @@ class Decoder(tf.keras.layers.Layer):
 
         return coarse, fine
 
+loss_tracker = tf.keras.metrics.Mean(name="loss")
+
 class PCN(tf.keras.Model):
     def __init__(self, name="pcn_model", **kwargs):
         super(PCN, self).__init__(name=name, **kwargs)
         self.encoder = Encoder_PN()
         self.decoder = Decoder()
+        self.step = 0
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
         inputs, npts = inputs
@@ -108,3 +112,34 @@ class PCN(tf.keras.Model):
         coarse, fine = self.decoder(features)
         return coarse, fine
 
+    def train_step(self, data):
+        self.step+=1
+        inputs, gt = data
+
+        with tf.GradientTape() as tape:
+            coarse, fine = self(inputs, training=True)
+
+            """Total Loss Calculation"""
+            gt_ds = gt[:, :coarse.shape[1], :]
+            loss_coarse = earth_mover(coarse, gt_ds)
+            loss_fine = chamfer(fine, gt)
+            loss_value = loss_coarse + loss_fine * self.get_alpha(self.step)
+
+        # Compute gradients
+        trainable_vars = self.trainable_variables
+        gradients = tape.gradient(loss_value, trainable_vars)
+        self.optimizer.apply_gradients(zip(gradients, trainable_vars))
+        loss_tracker.update_state(loss_value)
+        return {"loss": loss_tracker.result()}
+
+    @property
+    def metrics(self):
+        return [loss_tracker]
+
+    def get_alpha(step):
+        rng = [10000, 20000, 50000]
+        b = [0.01, 0.1, 0.5, 1.0]
+        for ind, ele in enumerate(rng):
+            if step < ele:
+                return b[ind]
+        return b[-1]

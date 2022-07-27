@@ -54,7 +54,8 @@ class Dataloader:
                 npts.append(self.data[1][idx])
                 complete.append(self.data[2][idx])
             self.counter+=1
-            return tf.convert_to_tensor(np.asarray([partial]), np.float32), npts, tf.convert_to_tensor(np.asarray(complete), np.float32)
+            # return tf.convert_to_tensor(np.asarray([partial]), np.float32), npts, tf.convert_to_tensor(np.asarray(complete), np.float32)
+            return np.asarray([partial]), npts, np.asarray(complete)
         else:
             self.counter = 0
             self.shuffled_idx = self.split_idx()
@@ -68,21 +69,4 @@ class Dataloader:
             batch_n.append(temp_n)
             batch_g.append(temp_g)
         return batch_i, batch_n, batch_g 
-            
-
-
-    # def split_to_batch(self):
-    #     batch_i, batch_n, batch_g = [], [], []
-    #     for id in range(int(np.ceil(len(self.data[0])/self.batch_size))):
-    #         start = id*self.batch_size
-    #         end = None if start+self.batch_size >= len(self.data[0]) else start+self.batch_size
-    #         temp_i, temp_n, temp_g = [], [], []
-    #         for idx in range(start, end):
-    #             temp_i.extend(self.data[0][idx])
-    #             temp_n.append(self.data[1][idx])
-    #             temp_g.append(self.data[2][idx])
-    #         batch_i.append(temp_i)
-    #         batch_n.append(temp_n)
-    #         batch_g.append(temp_g)
-    #     return np.array(batch_i), np.array(batch_n), np.array(batch_g)
 
