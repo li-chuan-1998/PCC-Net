@@ -41,7 +41,6 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--base_lr', type=float, default=0.0001)
     parser.add_argument('--decay_rate', type=float, default=0.3)
-    parser.add_argument('--save_freq', type=int, default=5)
     args = parser.parse_args()
 
     train(args)
