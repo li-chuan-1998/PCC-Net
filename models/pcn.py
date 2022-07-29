@@ -146,7 +146,7 @@ class PCN(tf.keras.Model):
     def metrics(self):
         return [loss_tracker]
 
-    def get_alpha(step):
+    def get_alpha(self, step):
         rng = [10000, 20000, 50000]
         b = [0.01, 0.1, 0.5, 1.0]
         for ind, ele in enumerate(rng):
