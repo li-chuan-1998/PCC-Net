@@ -52,11 +52,11 @@ class Coarse_Layer(tf.keras.layers.Layer):
 
     def build(self, input_shape: tf.Tensor):
         self.dense_1 = tf.keras.layers.Dense(1024)
-        self.dense_1 = tf.keras.layers.Dense(1024)
+        self.dense_2 = tf.keras.layers.Dense(1024)
         self.dense_3 = tf.keras.layers.Dense(self.num_coarse*3)
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
-        inputs = self.dense_3(self.dense_1(self.dense_1(inputs)))
+        inputs = self.dense_3(self.dense_2(self.dense_1(inputs)))
         return tf.reshape(inputs, [-1, self.num_coarse, 3])
 
 class Decoder(tf.keras.layers.Layer):
@@ -98,7 +98,7 @@ class Decoder(tf.keras.layers.Layer):
 
 
 loss_tracker = tf.keras.metrics.Mean(name="loss")
-val_loss_tracker = tf.keras.metrics.Mean(name="val_loss")
+val_loss_tracker = tf.keras.metrics.Mean(name="loss")
 
 class PCN(tf.keras.Model):
     def __init__(self, name="pcn_model", **kwargs):
@@ -130,7 +130,7 @@ class PCN(tf.keras.Model):
         gradients = tape.gradient(loss_value, trainable_vars)
         self.optimizer.apply_gradients(zip(gradients, trainable_vars))
         loss_tracker.update_state(loss_value)
-        return {"loss": loss_tracker.result(), "val_loss": 0}
+        return {"loss": loss_tracker.result()}
 
     def test_step(self, data):
         inputs, gt = data
@@ -141,7 +141,7 @@ class PCN(tf.keras.Model):
         loss_fine = chamfer(fine, gt)
         loss_value = loss_coarse + loss_fine * self.get_alpha(self.step)
         val_loss_tracker.update_state(loss_value)
-        return {"loss": loss_tracker.result(), "val_loss": val_loss_tracker.result()}
+        return {"val_loss": val_loss_tracker.result()}
 
     @property
     def metrics(self):
