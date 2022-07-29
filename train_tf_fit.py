@@ -25,7 +25,7 @@ def train(args):
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5, verbose=1)
     checkpoints = tf.keras.callbacks.ModelCheckpoint(filepath=args.checkpoint_dir, save_weights_only=True,
                                             monitor='val_loss', mode='min', verbose=1, save_best_only=True)
-    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=args.decay_rate, patience=2, min_lr=0.000001)
+    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=args.decay_rate, patience=3, min_lr=0.000001)
     callbacks = [resume_training, early_stopping, checkpoints, reduce_lr]
 
     # Training/Validating
