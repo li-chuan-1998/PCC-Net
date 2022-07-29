@@ -74,14 +74,14 @@ class Decoder(tf.keras.layers.Layer):
         self.dense_3 = tf.keras.layers.Dense(3)
 
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
-        partial = inputs
+        partial, bs = inputs
         coarse = self.coarse_layer(partial)
         
         x = tf.raw_ops.LinSpace(start=-self.grid_scale, stop=self.grid_scale, num=self.grid_size)
         y = tf.raw_ops.LinSpace(start=-self.grid_scale, stop=self.grid_scale, num=self.grid_size)
         grid = tf.meshgrid(x, y)
         grid = tf.expand_dims(tf.reshape(tf.stack(grid, axis=2), [-1, 2]), 0)
-        grid_feat = tf.tile(grid, [len(partial), self.num_coarse, 1])
+        grid_feat = tf.tile(grid, [bs, self.num_coarse, 1])
 
         point_feat = tf.tile(tf.expand_dims(coarse, 2), [1, 1, self.grid_size ** 2, 1])
         point_feat = tf.reshape(point_feat, [-1, self.num_fine, 3])
@@ -98,7 +98,7 @@ class Decoder(tf.keras.layers.Layer):
 
 
 loss_tracker = tf.keras.metrics.Mean(name="loss")
-val_loss_tracker = tf.keras.metrics.Mean(name="loss")
+valid_tracker = tf.keras.metrics.Mean(name="loss")
 
 class PCN(tf.keras.Model):
     def __init__(self, name="pcn_model", **kwargs):
@@ -110,7 +110,7 @@ class PCN(tf.keras.Model):
     def call(self, inputs: tf.Tensor) -> tf.Tensor:
         inputs, npts = inputs
         features = self.encoder((inputs, npts))
-        coarse, fine = self.decoder(features)
+        coarse, fine = self.decoder((features, len(npts)))
         return coarse, fine
 
     def train_step(self, data):
@@ -140,12 +140,12 @@ class PCN(tf.keras.Model):
         loss_coarse = earth_mover(coarse, gt_ds)
         loss_fine = chamfer(fine, gt)
         loss_value = loss_coarse + loss_fine * self.get_alpha(self.step)
-        val_loss_tracker.update_state(loss_value)
-        return {"val_loss": val_loss_tracker.result()}
+        valid_tracker.update_state(loss_value)
+        return {"loss": valid_tracker.result()}
 
     @property
     def metrics(self):
-        return [loss_tracker, val_loss_tracker]
+        return [loss_tracker, valid_tracker]
 
     def get_alpha(self, step):
         rng = [10000, 20000, 50000]
