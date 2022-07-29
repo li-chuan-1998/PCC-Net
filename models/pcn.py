@@ -98,6 +98,7 @@ class Decoder(tf.keras.layers.Layer):
 
 
 loss_tracker = tf.keras.metrics.Mean(name="loss")
+val_loss_tracker = tf.keras.metrics.Mean(name="val_loss")
 
 class PCN(tf.keras.Model):
     def __init__(self, name="pcn_model", **kwargs):
@@ -129,7 +130,7 @@ class PCN(tf.keras.Model):
         gradients = tape.gradient(loss_value, trainable_vars)
         self.optimizer.apply_gradients(zip(gradients, trainable_vars))
         loss_tracker.update_state(loss_value)
-        return {"loss": loss_tracker.result()}
+        return {"loss": loss_tracker.result(), "val_loss": 0}
 
     def test_step(self, data):
         inputs, gt = data
@@ -139,12 +140,12 @@ class PCN(tf.keras.Model):
         loss_coarse = earth_mover(coarse, gt_ds)
         loss_fine = chamfer(fine, gt)
         loss_value = loss_coarse + loss_fine * self.get_alpha(self.step)
-        loss_tracker.update_state(loss_value)
-        return {"loss": loss_tracker.result()}
+        val_loss_tracker.update_state(loss_value)
+        return {"loss": loss_tracker.result(), "val_loss": val_loss_tracker.result()}
 
     @property
     def metrics(self):
-        return [loss_tracker]
+        return [loss_tracker, val_loss_tracker]
 
     def get_alpha(self, step):
         rng = [10000, 20000, 50000]
