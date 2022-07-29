@@ -28,7 +28,7 @@ def train(args):
         latest = tf.train.latest_checkpoint(args.restore_point)
         model.load_weights(latest)
     
-    print("Begin Training".center(100,"-"))
+
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3, verbose=1)
     checkpoints = tf.keras.callbacks.ModelCheckpoint(filepath=args.checkpoint_dir, save_weights_only=True,
                                             monitor='val_loss', mode='min', verbose=1,save_best_only=True)
@@ -37,7 +37,7 @@ def train(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', default="data/complete/")
-    parser.add_argument('--checkpoint_dir', default="/content/drive/MyDrive/pcn_tf_2/{epoch:003d}")
+    parser.add_argument('--checkpoint_dir', default="/content/drive/MyDrive/pcn_tf_2/{epoch:003d}-({val_loss:.6f}")
     parser.add_argument('--restore', action='store_true')
     parser.add_argument('--restore_point', default="/content/drive/MyDrive/pcn_tf_2/")
 
