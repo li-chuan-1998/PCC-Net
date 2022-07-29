@@ -17,35 +17,30 @@ def train(args):
 
     # Model Initialization
     model = PCN()
-    lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
-    args.base_lr,
-    decay_steps=args.decay_steps,
-    decay_rate=args.decay_rate,
-    staircase=True)
-    optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule)
+    optimizer=tf.keras.optimizers.Adam(learning_rate=args.base_lr)
     model.compile(optimizer=optimizer)
-    if args.restore:
-        latest = tf.train.latest_checkpoint(args.restore_point)
-        model.load_weights(latest)
     
-
-    early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3, verbose=1)
+    # Callbacks
+    resume_training = tf.keras.callbacks.BackupAndRestore(args.resume_training_dir)
+    early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5, verbose=1)
     checkpoints = tf.keras.callbacks.ModelCheckpoint(filepath=args.checkpoint_dir, save_weights_only=True,
-                                            monitor='val_loss', mode='min', verbose=1,save_best_only=True)
-    hist = model.fit(ds_train, validation_data=ds_valid, epochs=args.num_epochs, callbacks=[early_stopping, checkpoints], workers=4)
+                                            monitor='val_loss', mode='min', verbose=1, save_best_only=True)
+    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=args.decay_rate, patience=2, min_lr=0.000001)
+    callbacks = [resume_training, early_stopping, checkpoints, reduce_lr]
+
+    # Training/Validating
+    hist = model.fit(ds_train, validation_data=ds_valid, epochs=args.num_epochs, callbacks=callbacks, workers=4)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', default="data/complete/")
-    parser.add_argument('--checkpoint_dir', default="/content/drive/MyDrive/pcn_tf_2/{epoch:003d}-({val_loss:.6f}")
-    parser.add_argument('--restore', action='store_true')
-    parser.add_argument('--restore_point', default="/content/drive/MyDrive/pcn_tf_2/")
+    parser.add_argument('--checkpoint_dir', default="/content/drive/MyDrive/pcn_tf_2/{epoch:003d}-({val_loss:.6f})")
+    parser.add_argument('--resume_training_dir', default="/content/drive/MyDrive/pcn_tf_2/backup/")
 
     parser.add_argument('--num_epochs', type=int, default=100000)
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--base_lr', type=float, default=0.0001)
-    parser.add_argument('--decay_steps', type=int, default=30000)
-    parser.add_argument('--decay_rate', type=float, default=0.8)
+    parser.add_argument('--decay_rate', type=float, default=0.3)
     parser.add_argument('--save_freq', type=int, default=5)
     args = parser.parse_args()
 
