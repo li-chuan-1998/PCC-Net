@@ -25,8 +25,6 @@ def train(args):
         if args.save_outputs:
             #TODO
             pass
-        
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
