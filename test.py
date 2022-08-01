@@ -30,9 +30,6 @@ def train(args):
         if args.save_outputs:
             filename = id_list[id].replace("complete", "output")
             save_pcd(os.path.join(args.save_dir, filename), fine[0])
-        
-        if id % 10 == 0:
-            print("-", end=" ")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
