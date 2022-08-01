@@ -7,7 +7,8 @@ from datagenerator import DataGenerator
 from models.pcn import PCN
 
 def train(args):
-    ds_test = DataGenerator(os.listdir(args.test_dir), complete_dir=args.test_dir, batch_size=args.batch_size)
+    id_list = os.listdir(args.test_dir)
+    ds_test = DataGenerator(id_list, complete_dir=args.test_dir, batch_size=args.batch_size, shuffle=False)
 
     # Model Initialization
     model = PCN()
@@ -19,13 +20,13 @@ def train(args):
     # Testing
     base = 0.01
     for id, (input, npts, gt) in enumerate(ds_test):
-        coarse, fine = model((input, npts), training=True)
+        coarse, fine = model((input, npts), training=False)
         if args.visualise_outputs:
             show_pcds([input[0], fine[0] + base, gt[0]+base*2])
 
         if args.save_outputs:
-            #TODO
-            pass
+            filename = id_list[id].replace("complete", "partial")
+            save_pcd(os.path.join(args.save_dir, filename), fine)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -33,6 +34,7 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint_dir', default="/content/drive/MyDrive/pcn_tf_2/")
     parser.add_argument('--visualise_outputs', action='store_true')
     parser.add_argument('--save_outputs', action='store_true')
+    parser.add_argument('--save_dir', default="/content/drive/MyDrive/")
     parser.add_argument('--batch_size', type=int, default=1)
 
     args = parser.parse_args()
