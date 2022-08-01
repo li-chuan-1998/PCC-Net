@@ -19,10 +19,10 @@ def train(args):
 
     # Testing
     base = 0.01
-    for id, (input, npts, gt) in enumerate(ds_test):
-        coarse, fine = model((input, npts), training=False)
+    for id, (inputs, gt) in enumerate(ds_test):
+        coarse, fine = model(inputs, training=False)
         if args.visualise_outputs:
-            show_pcds([input[0], fine[0] + base, gt[0]+base*2])
+            show_pcds([inputs[0][0], fine[0] + base, gt[0]+base*2])
 
         if args.save_outputs:
             filename = id_list[id].replace("complete", "partial")
