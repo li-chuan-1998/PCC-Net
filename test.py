@@ -9,24 +9,30 @@ from models.pcn import PCN
 def train(args):
     id_list = os.listdir(args.test_dir)
     ds_test = DataGenerator(id_list, complete_dir=args.test_dir, batch_size=args.batch_size, shuffle=False)
-
+    
     # Model Initialization
     model = PCN()
-    optimizer=tf.keras.optimizers.Adam(learning_rate=0.000001)
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001)
     model.compile(optimizer=optimizer)
     latest = tf.train.latest_checkpoint(args.checkpoint_dir)
     model.load_weights(latest)
 
     # Testing
     base = 0.01
+    if args.save_outputs:
+        os.makedirs(args.save_dir, exist_ok=True)
+
     for id, (inputs, gt) in enumerate(ds_test):
         coarse, fine = model(inputs, training=False)
         if args.visualise_outputs:
-            show_pcds([inputs[0][0], fine[0] + base, gt[0]+base*2])
+            show_pcds([inputs[0], fine[0] + base, gt[0]+base*2])
 
         if args.save_outputs:
-            filename = id_list[id].replace("complete", "partial")
-            save_pcd(os.path.join(args.save_dir, filename), fine)
+            filename = id_list[id].replace("complete", "output")
+            save_pcd(os.path.join(args.save_dir, filename), fine[0])
+        
+        if id % 10 == 0:
+            print("-", end=" ")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
